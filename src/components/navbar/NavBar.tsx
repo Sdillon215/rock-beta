@@ -54,8 +54,8 @@ export default function NavBar() {
                   height={36}
                 />
               </div>
-              <div className="hidden md:block">
-                <div className="ml-6 flex items-baseline space-x-4">
+              <div className="block">
+                <div className="ml-2 md:ml-6 flex items-baseline  md:space-x-4">
                   {navigation.map((item) => (
                     <a
                       key={item.name}
@@ -72,7 +72,7 @@ export default function NavBar() {
                 </div>
               </div>
             </div>
-            <div className="hidden md:block">
+            <div className="block">
               <div className="ml-4 flex items-center md:ml-6">
                 <Menu as="div" className="relative ml-3">
                   <div>
