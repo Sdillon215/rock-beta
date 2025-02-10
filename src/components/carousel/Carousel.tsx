@@ -71,7 +71,7 @@ export default function Carousel() {
                         priority={index === currentSlide}
                     />
                     <div className="absolute left-2 bottom-2 rounded-md bg-gray-800 py-1 px-2">
-                        <h4 className="text-sm">{slide.title}</h4>
+                        <h4 className="text-sm text-white">{slide.title}</h4>
                     </div>
                 </div>
             ))}
