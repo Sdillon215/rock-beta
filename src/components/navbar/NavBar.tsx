@@ -51,7 +51,8 @@ export default function NavBar() {
                   alt="Your Company"
                   src="/logo.png"
                   width={60}
-                  height={36}
+                  height={60}
+                  className="h-12 w-auto"
                 />
               </div>
               <div className="block">
