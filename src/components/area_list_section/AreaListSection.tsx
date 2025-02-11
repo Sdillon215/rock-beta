@@ -1,5 +1,3 @@
-import ClassicClimbsList from "@/components/classic_climbs_list/ClassicClimbsList";
-
 type SubArea = {
     name: string;
     numberOfRoutes: number;
