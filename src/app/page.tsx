@@ -1,11 +1,13 @@
 import Hero from "@/components/hero/Hero";
-import ClassicClimbs from "@/components/classic_climbs_section/ClassicClimbsSection";
+import ClassicClimbSection from "@/components/classic_climbs_section/ClassicClimbsSection";
+import AreaListSection from "@/components/area_list_section/AreaListSection";
 
 export default function Home() {
   return (
     <div className="grid gap-y-4">
       <Hero />
-      <ClassicClimbs />
+      <ClassicClimbSection />
+      <AreaListSection />
     </div>
   );
 }
