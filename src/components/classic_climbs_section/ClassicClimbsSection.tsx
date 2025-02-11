@@ -48,7 +48,7 @@ export default function ClassicClimbsSection() {
                     </div>
                     <div className="flex flex-row items-center bg-gray-200 p-2">
                         <h4 className="text-sm">Jun 29</h4>
-                        <h4 className="px-2 font-semibold">Please don't play music at the crag</h4>
+                        <h4 className="px-2 font-semibold">Please don&apos;t play music at the crag</h4>
                         <p className="text-xs">947 posts</p>
                     </div>
                 </div>
