@@ -4,7 +4,6 @@ export default function Hero() {
     return (
         <section className="bg-gray-800">
             <div className="grid grid-rows-10 md:grid-rows-3 md:grid-cols-7 gap-4 h-screen md:h-[65vh] p-4 max-w-screen-2xl mx-auto">
-
                 <div className="row-span-5 md:col-span-4 md:row-span-3">
                     <Carousel />
                 </div>

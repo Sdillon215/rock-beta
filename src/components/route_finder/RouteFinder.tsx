@@ -54,7 +54,7 @@ export default function RoutFinder() {
     const [topropeEnabled, setTopropeEnabled] = useState(false);
 
     return (
-        <div className="grid content-start mx-auto h-full w-2/3 p-4 bg-gray-700 rounded-md">
+        <div className="grid content-start mx-auto h-full md:w-2/3 p-4 bg-gray-700 rounded-md">
             <div className="border-b-[1px]">
                 <h1 className="text-2xl font-bold text-white">Route Finder</h1>
             </div>
