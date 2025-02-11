@@ -43,7 +43,7 @@ export default function ClassicClimbsList() {
                 <div key={route.rank} className={clsx("grid grid-cols-2 md:grid-cols-3 place-content-between p-2", index % 2 === 0 ? "bg-gray-300" : "bg-gray-200")}>
                     <div className="flex flex-col md:col-span-2 md:flex-row md:justify-between">
                         <h4 className="font-semibold">{route.rank.toString()}. {route.routeName}</h4>
-                        <p className="text-xs text-left">{route.area + ' > ' + route.subArea}</p>
+                        <p className="text-xs text-left">{route.area} &gt; {route.subArea}</p>
                     </div>
                     <div className="flex flex-col md:col-span-1 md:flex-row-reverse items-end md:items-center">
                         <h4 className="font-semibold md:pl-4">{route.grade}</h4>
