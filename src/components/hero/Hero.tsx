@@ -9,8 +9,8 @@ export default function Hero() {
                 </div>
                 <div className="flex items-center justify-center row-span-1 md:col-span-3 border-b-[1px]">
                     <div className="text-center">
-                        <h1 className=" text-2xl md:text-4xl font-bold text-white">Beta For Any Route</h1>
-                        <p className=" text-white">123,456 routes and counting</p>
+                        <h1 className="text-2xl md:text-4xl font-bold text-white">Beta For Any Route</h1>
+                        <p className="text-white">123,456 routes and counting</p>
                     </div>
                 </div>
                 <div className="row-span-4 md:col-span-3 md:row-span-2">

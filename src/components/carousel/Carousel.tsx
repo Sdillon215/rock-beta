@@ -59,7 +59,7 @@ export default function Carousel() {
             {slides.map((slide, index) => (
                 <div
                     key={index}
-                    className={`absolute left-0 top-0 h-full w-full transition-opacity duration-1000 ${index === currentSlide ? 'z-10 opacity-100' : 'z-0 opacity-0'
+                    className={`h-full w-full transition-opacity duration-1000 ${index === currentSlide ? 'z-10 opacity-100' : 'z-0 opacity-0'
                         }`}
                 >
                     <Image
