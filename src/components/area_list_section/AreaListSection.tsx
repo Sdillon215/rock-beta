@@ -1,18 +1,9 @@
 import { Suspense } from "react";
-import { getClient } from "@/lib/apollo_client";
-import { GET_STATES_PREVIEW } from "@/graphql/queries";
-import { StatePreview, StateBase, SubareaBase } from "@/graphql/types";
+import { fetchStatesWithSubareas } from "@/lib/data/queries";
 
 
 export default async function AreaListSection() {
-    const client = getClient();
-    const { data } = await client.query({ query: GET_STATES_PREVIEW });
-    const subareas = data.subarea || [];
-
-    const climbingAreas: StatePreview[] = data.states.map((state: StateBase) => ({
-        ...state,
-        subareas: subareas.filter((subarea: SubareaBase) => subarea.state_id === state.id),
-    }));
+    const climbingAreas = await fetchStatesWithSubareas();
 
     return (
         <section className="max-w-screen-xl md:mx-auto w-full mb-4">
