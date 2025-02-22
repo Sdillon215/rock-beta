@@ -11,32 +11,32 @@ import {
 import { PhotoIcon } from '@heroicons/react/24/outline';
 import Carousel from '@/components/carousel/Carousel';
 import ClassicClimbsList from '@/components/classic_climbs_list/ClassicClimbsList';
-import { fetchStateDetails } from '@/lib/data/queries';
+import { fetchSubareaDetails } from '@/lib/data/queries';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-    title: 'State Page',
+    title: 'Subarea Page',
 };
 
 export default async function Page({ params }: { params: { id: string } }) {
     const { id } = await params;
-    const stateDetails = await fetchStateDetails(id);
-    if (!stateDetails) {
+    const subareaDetails = await fetchSubareaDetails(id);
+    if (!subareaDetails) {
         return notFound();
     }
 
-    console.log("State", stateDetails);
+    console.log("Subarea", subareaDetails);
 
     return (
         <main className="grid gap-4 max-w-screen-xl mx-auto md:py-4">
             <section className="grid md:grid-flow-col gap-4 md:grid-cols-12">
                 <div className="grid gap-4 md:col-span-3 content-start h-fit bg-gray-200">
                     <div className="md:hidden px-4">
-                        <p>All Areas &gt; {stateDetails.name}</p>
-                        <h1 className="text-2xl md:text-4xl font-bold">{stateDetails.name}</h1>
+                        <p>All Areas &gt; {subareaDetails.name}</p>
+                        <h1 className="text-2xl md:text-4xl font-bold">{subareaDetails.name}</h1>
                         <div className="flex flex-row items-center">
                             <p className="pr-4">GPS:</p>
-                            <p>{stateDetails.gps}</p>
+                            <p>{subareaDetails.gps}</p>
                         </div>
                     </div>
                     <div className="relative h-[25vh] mx-2">
@@ -48,33 +48,52 @@ export default async function Page({ params }: { params: { id: string } }) {
                             className="object-contain object-center"
                         />
                     </div>
-                    <div>
-                        <div className="border-b-4 border-blue-900">
-                            <h1 className="text-lg font-bold pl-2">Areas in State</h1>
-                        </div>
-                        {stateDetails.subareas.map((subarea) => (
-                            <div key={subarea.id} className="flex flex-row items-center p-2">
-                                <Link href={`/subarea/${subarea.id}`} className="text-blue-900 hover:text-blue-700">
-                                    <h4 className="font-bold">{subarea.name}</h4>
-                                </Link>
-                                <p className="text-xs">87 routes</p>
+                    {subareaDetails.subareas.length > 0 && (
+                        <div>
+                            <div className="border-b-4 border-blue-900">
+                                <h1 className="text-lg font-bold pl-2">Areas in {subareaDetails.name}</h1>
                             </div>
-                        ))}
-                    </div>
+                            {subareaDetails.subareas.map((subarea) => (
+                                <div key={subarea.id} className="flex flex-row items-center p-2">
+                                    <Link href={`/subarea/${subarea.id}`} className="text-blue-900 hover:text-blue-700">
+                                        <h4 className="font-bold">{subarea.name}</h4>
+                                    </Link>
+                                    <p className="text-xs">87 routes</p>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                    {subareaDetails.routes.length > 0 && (
+                        <div>
+                            <div className="border-b-4 border-blue-900">
+                                <h1 className="text-lg font-bold pl-2">Routes in {subareaDetails.name}</h1>
+                            </div>
+                            {subareaDetails.routes.map((route) => (
+                                <div key={route.id} className="flex flex-row items-center p-2">
+                                    <h4 className="px-2 font-semibold">{route.name}</h4>
+                                    <p className="text-xs">{route.grade}</p>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
                 <div className="grid md:grid-cols-2 md:col-span-9 md:row-span-1 gap-4">
                     <div className="grid md:col-span-1 h-fit gap-8">
                         <div className="hidden md:block px-4">
-                            <p>All Areas &gt; {stateDetails.name}</p>
-                            <h1 className="text-2xl md:text-4xl font-bold">{stateDetails.name}</h1>
+                            <p>All Areas &gt; {subareaDetails.name}</p>
+                            <h1 className="text-2xl md:text-4xl font-bold">{subareaDetails.name}</h1>
                         </div>
                         <div className="hidden md:flex flex-row items-center px-4">
                             <p className="pr-4">GPS:</p>
-                            <p>{stateDetails.gps}</p>
+                            <p>{subareaDetails.gps}</p>
                         </div>
                         <div className="px-4">
                             <h1 className="text-2xl md:text-4xl font-bold">Description</h1>
-                            <p>{stateDetails.description}</p>
+                            <p>{subareaDetails.description}</p>
+                        </div>
+                        <div className="px-4">
+                            <h1 className="text-2xl md:text-4xl font-bold">Location</h1>
+                            <p>{subareaDetails.location}</p>
                         </div>
                     </div>
                     <div className="grid gap-4 grid-flow-row justify-items-end content-between md:col-span-1 p-4">

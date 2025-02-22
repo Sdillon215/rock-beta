@@ -1,9 +1,9 @@
-import { fetchStatesWithSubareas } from "@/lib/data/queries";
+import { fetchStatesPreviews } from "@/lib/data/queries";
 import Link from "next/link";
 
 
 export default async function AreaList() {
-    const climbingAreas = await fetchStatesWithSubareas();
+    const climbingAreas = await fetchStatesPreviews();
 
     return (
         <div className="grid md:grid-cols-3">
@@ -11,7 +11,7 @@ export default async function AreaList() {
                 <div key={area.id} className="col-span-1 flex flex-col p-2 bg-gray-200">
                     <div className="flex flex-row justify-between border-b-2 border-blue-900">
                         <Link href={`/state/${area.id}`} className="text-blue-900 hover:text-blue-700">
-                        <h3 className="font-bold">{area.name}</h3>
+                            <h3 className="font-bold">{area.name}</h3>
                         </Link>
                     </div>
                     <div className="flex flex-col">
@@ -23,7 +23,6 @@ export default async function AreaList() {
                     </div>
                 </div>
             ))}
-
         </div>
     );
 }
