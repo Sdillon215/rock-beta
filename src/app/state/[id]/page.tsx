@@ -23,9 +23,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
     const stateDetails = await fetchStateDetails(id);
     if (!stateDetails) {
         return notFound();
-    }
-
-    console.log("State", stateDetails);
+    };
 
     return (
         <main className="grid gap-4 max-w-screen-xl mx-auto md:py-4">
@@ -53,11 +51,11 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                             <h1 className="text-lg font-bold pl-2">Areas in State</h1>
                         </div>
                         {stateDetails.subareas.map((subarea) => (
-                            <div key={subarea.id} className="flex flex-row items-center p-2">
+                            <div key={subarea.id} className="flex flex-row items-end justify-between p-2">
                                 <Link href={`/subarea/${subarea.id}`} className="text-blue-900 hover:text-blue-700">
                                     <h4 className="font-bold">{subarea.name}</h4>
                                 </Link>
-                                <p className="text-xs">87 routes</p>
+                                <p className="text-xs">{subarea.routes_aggregate.aggregate.count.toString()} routes</p>
                             </div>
                         ))}
                     </div>

@@ -11,32 +11,32 @@ import {
 import { PhotoIcon } from '@heroicons/react/24/outline';
 import Carousel from '@/components/carousel/Carousel';
 import ClassicClimbsList from '@/components/classic_climbs_list/ClassicClimbsList';
-import { fetchSubareaDetails } from '@/lib/data/queries';
+import { fetchCragDetails } from '@/lib/data/queries';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-    title: 'Subarea Page',
+    title: 'Crag Page',
 };
 
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id;
-    const subareaDetails = await fetchSubareaDetails(id);
-    if (!subareaDetails) {
+    const cragDetails = await fetchCragDetails(id);
+    if (!cragDetails) {
         return notFound();
     }
 
-    console.log("Subarea", subareaDetails);
+    console.log("Subarea", cragDetails);
 
     return (
         <main className="grid gap-4 max-w-screen-xl mx-auto md:py-4">
             <section className="grid md:grid-flow-col gap-4 md:grid-cols-12">
                 <div className="grid gap-4 md:col-span-3 content-start h-fit bg-gray-200">
                     <div className="md:hidden px-4">
-                        <p>All Areas &gt; {subareaDetails.name}</p>
-                        <h1 className="text-2xl md:text-4xl font-bold">{subareaDetails.name}</h1>
+                        <p>All Areas &gt; {cragDetails.name}</p>
+                        <h1 className="text-2xl md:text-4xl font-bold">{cragDetails.name}</h1>
                         <div className="flex flex-row items-center">
                             <p className="pr-4">GPS:</p>
-                            <p>{subareaDetails.gps}</p>
+                            <p>{cragDetails.gps}</p>
                         </div>
                     </div>
                     <div className="relative h-[25vh] mx-2">
@@ -48,41 +48,43 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                             className="object-contain object-center"
                         />
                     </div>
-                    {subareaDetails.crags.length > 0 && (
-                        <div>
-                            <div className="border-b-4 border-blue-900">
-                                <h1 className="text-lg font-bold pl-2">Areas in {subareaDetails.name}</h1>
-                            </div>
-                            {subareaDetails.crags.map((crag) => (
-                                <div key={crag.id} className="flex flex-row items-end justify-between p-2">
-                                    <Link href={`/crag/${crag.id}`} className="text-blue-900 hover:text-blue-700">
-                                        <h4 className="font-bold">{crag.name}</h4>
-                                    </Link>
-                                    <p className="text-xs">{crag.routes_aggregate.aggregate.count.toString()} routes</p>
-                                </div>
-                            ))}
+                    <div>
+                        <div className="border-b-4 border-blue-900">
+                            <h1 className="text-lg font-bold pl-2">Routes in {cragDetails.name}</h1>
                         </div>
-                    )}
+                        {cragDetails.routes.length > 0 && (
+                            <>
+                                {cragDetails.routes.map((route) => (
+                                    <div key={route.id} className="flex flex-row items-center p-2">
+                                        <Link href={`/subarea/${route.id}`} className="text-blue-900 hover:text-blue-700">
+                                            <h4 className="font-bold">{route.name}</h4>
+                                        </Link>
+                                        <p className="text-xs">{route.grade}</p>
+                                    </div>
+                                ))}
+                            </>
+                        )}
+                    </div>
                 </div>
                 <div className="grid md:grid-cols-2 md:col-span-9 md:row-span-1 gap-4">
                     <div className="grid md:col-span-1 h-fit gap-8">
                         <div className="hidden md:block px-4">
-                            <p>All Areas &gt; {subareaDetails.name}</p>
-                            <h1 className="text-2xl md:text-4xl font-bold">{subareaDetails.name}</h1>
+                            <p>All Areas &gt; {cragDetails.name}</p>
+                            <h1 className="text-2xl md:text-4xl font-bold">{cragDetails.name}</h1>
                         </div>
-                        {subareaDetails.gps && (
+                        {cragDetails.gps && (
                             <div className="hidden md:flex flex-row items-center px-4">
                                 <p className="pr-4">GPS:</p>
-                                <p>{subareaDetails.gps}</p>
+                                <p>{cragDetails.gps}</p>
                             </div>
                         )}
                         <div className="px-4">
                             <h1 className="text-2xl md:text-4xl font-bold">Description</h1>
-                            <p>{subareaDetails.description}</p>
+                            <p>{cragDetails.description}</p>
                         </div>
                         <div className="px-4">
                             <h1 className="text-2xl md:text-4xl font-bold">Location</h1>
-                            <p>{subareaDetails.location}</p>
+                            <p>{cragDetails.location}</p>
                         </div>
                     </div>
                     <div className="grid gap-4 grid-flow-row justify-items-end content-between md:col-span-1 p-4">

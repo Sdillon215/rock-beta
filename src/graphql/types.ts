@@ -10,23 +10,38 @@ export type ClassicRoute = {
 export type StateBase = {
     id: string;
     name: string;
+    routes_aggregate: {
+        aggregate: {
+            count: number;
+        };
+    };
 };
 
 export type SubareaBase = {
     id: string;
     name: string;
-    state_id: string;
+    routes_aggregate: {
+        aggregate: {
+            count: number;
+        };
+    };
 };
 
 export type CragBase = {
     id: string;
     name: string;
+    routes_aggregate: {
+        aggregate: {
+            count: number;
+        };
+    };
 };
 
 export type RouteBase = {
     id: string;
     name: string;
     grade: string;
+    starRating: number;
 };
 
 // partial types
@@ -44,15 +59,14 @@ export type SubareaDetails = SubareaBase & {
     gps: string;
     description: string;
     location: string;
-    state_id: string;
     crags: CragBase[];
 };
 
 export type CragDetails = CragBase & {
-    state_id: string;
-    parent_subarea_id: string;
-    gps: string;
     description: string;
     location: string;
+    gps: string;
     routes: RouteBase[];
+    state: StateBase;
+    subarea: SubareaBase;
 };

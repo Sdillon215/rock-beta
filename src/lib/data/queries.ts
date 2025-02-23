@@ -2,25 +2,21 @@ import { getClient } from "@/lib/apollo_client";
 import {
     GET_STATES_PREVIEW,
     GET_STATE_DETAILS,
-    GET_SUBAREA_DETAILS
+    GET_SUBAREA_DETAILS,
+    GET_CRAG_DETAILS
 } from "@/graphql/queries";
 import {
     StatePreview,
-    StateBase,
-    SubareaBase,
     StateDetails,
-    SubareaDetails
+    SubareaDetails,
+    CragDetails
 } from "@/graphql/types";
 
 export async function fetchStatesPreviews(): Promise<StatePreview[]> {
     const client = getClient();
     const { data } = await client.query({ query: GET_STATES_PREVIEW });
-    const subareasData = data.subarea || [];
 
-    return data.states.map((state: StateBase) => ({
-        ...state,
-        subareas: subareasData.filter((subarea: SubareaBase) => subarea.state_id === state.id),
-    }));
+    return data.states;
 };
 
 export async function fetchStateDetails(stateId: string): Promise<StateDetails | null> {
@@ -32,10 +28,7 @@ export async function fetchStateDetails(stateId: string): Promise<StateDetails |
 
     if (!data.states_by_pk) return null; // Return null if state doesn't exist
 
-    return {
-        ...data.states_by_pk,
-        subareas: data.subarea || [], // Ensure subareas is always an array
-    };
+    return data.states_by_pk;
 };
 
 export async function fetchSubareaDetails(subareaId: string): Promise<SubareaDetails | null> {
@@ -47,8 +40,17 @@ export async function fetchSubareaDetails(subareaId: string): Promise<SubareaDet
 
     if (!data.subarea_by_pk) return null; // Return null if subarea doesn't exist
 
-    return {
-        ...data.subarea_by_pk,
-        crags: data.crags || [], // Ensure crags is always an array
-    };
-}
+    return data.subarea_by_pk;
+};
+
+export async function fetchCragDetails(cragId: string): Promise<CragDetails | null> {
+    const client = getClient();
+    const { data } = await client.query({
+        query: GET_CRAG_DETAILS,
+        variables: { cragId: cragId },
+    });
+
+    if (!data.crags_by_pk) return null; // Return null if subarea doesn't exist
+
+    return data.crags_by_pk;
+};
