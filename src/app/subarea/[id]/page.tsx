@@ -48,30 +48,17 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                             className="object-contain object-center"
                         />
                     </div>
-                    {subareaDetails.subareas.length > 0 && (
+                    {subareaDetails.crags.length > 0 && (
                         <div>
                             <div className="border-b-4 border-blue-900">
                                 <h1 className="text-lg font-bold pl-2">Areas in {subareaDetails.name}</h1>
                             </div>
-                            {subareaDetails.subareas.map((subarea) => (
-                                <div key={subarea.id} className="flex flex-row items-center p-2">
-                                    <Link href={`/subarea/${subarea.id}`} className="text-blue-900 hover:text-blue-700">
-                                        <h4 className="font-bold">{subarea.name}</h4>
+                            {subareaDetails.crags.map((crag) => (
+                                <div key={crag.id} className="flex flex-row items-center p-2">
+                                    <Link href={`/subarea/${crag.id}`} className="text-blue-900 hover:text-blue-700">
+                                        <h4 className="font-bold">{crag.name}</h4>
                                     </Link>
                                     <p className="text-xs">87 routes</p>
-                                </div>
-                            ))}
-                        </div>
-                    )}
-                    {subareaDetails.routes.length > 0 && (
-                        <div>
-                            <div className="border-b-4 border-blue-900">
-                                <h1 className="text-lg font-bold pl-2">Routes in {subareaDetails.name}</h1>
-                            </div>
-                            {subareaDetails.routes.map((route) => (
-                                <div key={route.id} className="flex flex-row items-center p-2">
-                                    <h4 className="px-2 font-semibold">{route.name}</h4>
-                                    <p className="text-xs">{route.grade}</p>
                                 </div>
                             ))}
                         </div>

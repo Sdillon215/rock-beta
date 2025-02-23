@@ -49,7 +49,6 @@ export async function fetchSubareaDetails(subareaId: string): Promise<SubareaDet
 
     return {
         ...data.subarea_by_pk,
-        routes: data.route || [], // Ensure routes is always an array
-        subareas: data.subarea || [], // Ensure subareas is always an array
+        crags: data.crags || [], // Ensure crags is always an array
     };
 }

@@ -49,16 +49,10 @@ export const GET_SUBAREA_DETAILS = gql`
       gps
       description
       location
-      parent_subarea_id
-    }
-    routes(where: { subarea_id: { _eq: $subareaId } }) {
-      id
-      name
-      grade
-    }
-    subarea(where: { parent_subarea_id: { _eq: $subareaId } }) {
-      id
-      name
       state_id
+    }
+    crags(where: { parent_subarea_id: { _eq: $subareaId } }) {
+      id
+      name
     }
   }`

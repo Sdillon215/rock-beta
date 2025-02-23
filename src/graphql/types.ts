@@ -18,6 +18,11 @@ export type SubareaBase = {
     state_id: string;
 };
 
+export type CragBase = {
+    id: string;
+    name: string;
+};
+
 export type RouteBase = {
     id: string;
     name: string;
@@ -39,7 +44,15 @@ export type SubareaDetails = SubareaBase & {
     gps: string;
     description: string;
     location: string;
+    state_id: string;
+    crags: CragBase[];
+};
+
+export type CragDetails = CragBase & {
+    state_id: string;
     parent_subarea_id: string;
+    gps: string;
+    description: string;
+    location: string;
     routes: RouteBase[];
-    subareas: SubareaBase[];
 };
