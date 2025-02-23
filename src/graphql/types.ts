@@ -59,6 +59,10 @@ export type SubareaDetails = SubareaBase & {
     gps: string;
     description: string;
     location: string;
+    state: {
+        id: string;
+        name: string;
+    };
     crags: CragBase[];
 };
 

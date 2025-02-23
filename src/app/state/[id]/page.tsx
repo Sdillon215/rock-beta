@@ -30,7 +30,12 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
             <section className="grid md:grid-flow-col gap-4 md:grid-cols-12">
                 <div className="grid gap-4 md:col-span-3 content-start h-fit bg-gray-200">
                     <div className="md:hidden px-4">
-                        <p>All Areas &gt; {stateDetails.name}</p>
+                        <span className="flex flex-row">
+                            <Link href={`/state`}>
+                                <p className="pr-1 text-blue-900 hover:text-blue-700">All Areas &gt;</p>
+                            </Link>
+                            <p className="pr-1">{stateDetails.name}</p>
+                        </span>
                         <h1 className="text-2xl md:text-4xl font-bold">{stateDetails.name}</h1>
                         <div className="flex flex-row items-center">
                             <p className="pr-4">GPS:</p>
@@ -63,7 +68,12 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                 <div className="grid md:grid-cols-2 md:col-span-9 md:row-span-1 gap-4">
                     <div className="grid md:col-span-1 h-fit gap-8">
                         <div className="hidden md:block px-4">
-                            <p>All Areas &gt; {stateDetails.name}</p>
+                            <span className="flex flex-row">
+                                <Link href={`/state`}>
+                                    <p className="pr-1 text-blue-900 hover:text-blue-700">All Areas &gt;</p>
+                                </Link>
+                                <p className="pr-1">{stateDetails.name}</p>
+                            </span>
                             <h1 className="text-2xl md:text-4xl font-bold">{stateDetails.name}</h1>
                         </div>
                         <div className="hidden md:flex flex-row items-center px-4">

@@ -62,6 +62,10 @@ export const GET_SUBAREA_DETAILS = gql`
     gps
     location
     description
+    state {
+      id
+      name
+    }
     crags {
       id
       name
