@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { fetchCragDetails } from '@/lib/data/queries';
 import AreaPage from '@/components/area_page/AreaPage';
-import path from 'path';
 
 export const metadata: Metadata = {
     title: 'Crag Page',
