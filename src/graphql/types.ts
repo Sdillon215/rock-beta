@@ -7,27 +7,7 @@ export type ClassicRoute = {
     grade: string;
 };
 
-export type StateBase = {
-    id: string;
-    name: string;
-    routes_aggregate: {
-        aggregate: {
-            count: number;
-        };
-    };
-};
-
-export type SubareaBase = {
-    id: string;
-    name: string;
-    routes_aggregate: {
-        aggregate: {
-            count: number;
-        };
-    };
-};
-
-export type CragBase = {
+export type AreaBase = {
     id: string;
     name: string;
     routes_aggregate: {
@@ -45,17 +25,17 @@ export type RouteBase = {
 };
 
 // partial types
-export type StatePreview = StateBase & {
-    subareas: SubareaBase[];
+export type StatePreview = AreaBase & {
+    subareas: AreaBase[];
 };
 
-export type StateDetails = StateBase & {
+export type StateDetails = AreaBase & {
     gps: string;
     description: string;
-    subareas: SubareaBase[];
+    subareas: AreaBase[];
 };
 
-export type SubareaDetails = SubareaBase & {
+export type SubareaDetails = AreaBase & {
     gps: string;
     description: string;
     location: string;
@@ -63,14 +43,17 @@ export type SubareaDetails = SubareaBase & {
         id: string;
         name: string;
     };
-    crags: CragBase[];
+    crags: AreaBase[];
 };
 
-export type CragDetails = CragBase & {
+export type CragDetails = AreaBase & {
     description: string;
     location: string;
     gps: string;
     routes: RouteBase[];
-    state: StateBase;
-    subarea: SubareaBase;
+    state: AreaBase;
+    subarea: AreaBase;
 };
+
+// Union types
+export type AreaDetails = StateDetails | SubareaDetails | CragDetails;
