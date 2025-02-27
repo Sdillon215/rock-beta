@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "@/components/navbar/NavBar";
-import { ApolloWrapper } from "@/lib/apollo_provider";
+import { Providers } from "@/components/providers/Providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,14 +29,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}
       >
-        <ApolloWrapper>
-          <div>
-            <NavBar />
-          </div>
-          <main>
-            {children}
-          </main>
-        </ApolloWrapper>
+          <Providers>
+            <div>
+              <NavBar />
+            </div>
+            <main>
+              {children}
+            </main>
+          </Providers>
       </body>
     </html>
   );

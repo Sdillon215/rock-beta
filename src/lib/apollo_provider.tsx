@@ -1,42 +1,53 @@
-"use client";
-// ^ this file needs the "use client" pragma
-
 import { HttpLink } from "@apollo/client";
 import {
   ApolloNextAppProvider,
   ApolloClient,
   InMemoryCache,
 } from "@apollo/experimental-nextjs-app-support";
+import { useSession } from "next-auth/react";
+import { useEffect, useMemo, useState } from "react";
 
-// Define the makeClient function and its return type
-function makeClient(): ApolloClient<InMemoryCache> {
+// Function to create Apollo Client
+function makeClient(token: string | null): ApolloClient<InMemoryCache> {
   const httpLink = new HttpLink({
-    // this needs to be an absolute url, as relative urls cannot be used in SSR
     uri: process.env.HASURA_GRAPHQL_ENDPOINT || "",
     headers: {
-      "x-hasura-admin-secret": process.env.HASURA_ADMIN_SECRET || "",
+      ...(token
+        ? { Authorization: `Bearer ${token}` } // Authenticated user
+        : { "x-hasura-role": "public" } // Public role for guests
+      ),
     },
-    // you can disable result caching here if you want to
-    // (this does not work if you are rendering your page with `export const dynamic = "force-static"`)
     fetchOptions: { cache: "no-store" },
-    // you can override the default `fetchOptions` on a per query basis
-    // via the `context` property on the options passed as a second argument
-    // to an Apollo Client data fetching hook, e.g.:
-    // const { data } = useSuspenseQuery(MY_QUERY, { context: { fetchOptions: { cache: "force-cache" }}});
   });
 
-  // use the `ApolloClient` from "@apollo/experimental-nextjs-app-support"
   return new ApolloClient({
-    // use the `InMemoryCache` from "@apollo/experimental-nextjs-app-support"
     cache: new InMemoryCache(),
     link: httpLink,
   });
 }
 
-// Define ApolloWrapper component, typing the `children` prop
+// Apollo Provider Component
 export function ApolloWrapper({ children }: React.PropsWithChildren) {
+  const { data: session, status } = useSession(); // Only fetch session **once**
+  console.log("Session status:", status);
+  console.log("Session data:", session);
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const newToken = session?.user?.hasura?.token || null;
+
+    // Only update token if it's different from the current token
+    if (newToken !== token) {
+      setToken(newToken);
+    }
+    console.log("User session:", session);
+  }, [session, status, token]); // Only run when session, status or token changes
+
+  // Memoize Apollo Client to avoid re-creating it on every render
+  const client = useMemo(() => makeClient(token), [token]);
+
   return (
-    <ApolloNextAppProvider makeClient={makeClient}>
+    <ApolloNextAppProvider makeClient={() => client}>
       {children}
     </ApolloNextAppProvider>
   );

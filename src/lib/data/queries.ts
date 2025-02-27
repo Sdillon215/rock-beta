@@ -13,14 +13,14 @@ import {
 } from "@/graphql/types";
 
 export async function fetchStatesPreviews(): Promise<StatePreview[]> {
-    const client = getClient();
+    const client = await getClient();
     const { data } = await client.query({ query: GET_STATES_PREVIEW });
 
     return data.states;
 };
 
 export async function fetchStateDetails(stateId: string): Promise<StateDetails | null> {
-    const client = getClient();
+    const client = await getClient();
     const { data } = await client.query({
         query: GET_STATE_DETAILS,
         variables: { stateId },
@@ -32,7 +32,7 @@ export async function fetchStateDetails(stateId: string): Promise<StateDetails |
 };
 
 export async function fetchSubareaDetails(subareaId: string): Promise<SubareaDetails | null> {
-    const client = getClient();
+    const client = await getClient();
     const { data } = await client.query({
         query: GET_SUBAREA_DETAILS,
         variables: { subareaId },
@@ -44,7 +44,7 @@ export async function fetchSubareaDetails(subareaId: string): Promise<SubareaDet
 };
 
 export async function fetchCragDetails(cragId: string): Promise<CragDetails | null> {
-    const client = getClient();
+    const client = await getClient();
     const { data } = await client.query({
         query: GET_CRAG_DETAILS,
         variables: { cragId: cragId },
