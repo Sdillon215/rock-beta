@@ -85,8 +85,8 @@ export default function AreaPage<T extends AreaDetails>({
                         {area.routes.length > 0 && (
                             <>
                                 {area.routes.map((route) => (
-                                    <div key={route.id} className="flex flex-row items-center p-2">
-                                        <Link href={`/subarea/${route.id}`} className="text-blue-900 hover:text-blue-700">
+                                    <div key={route.id} className="flex flex-row items-end justify-between p-2">
+                                        <Link href={`/route/${route.id}`} className="text-blue-900 hover:text-blue-700">
                                             <h4 className="font-bold">{route.name}</h4>
                                         </Link>
                                         <p className="text-xs">{route.grade}</p>

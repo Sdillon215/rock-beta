@@ -21,7 +21,7 @@ export type RouteBase = {
     id: string;
     name: string;
     grade: string;
-    starRating: number;
+    star_rating: number;
 };
 
 // partial types
