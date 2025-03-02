@@ -55,5 +55,32 @@ export type CragDetails = AreaBase & {
     subarea: AreaBase;
 };
 
+export type RouteDetails = RouteBase & {
+    discipline: string;
+    length: string;
+    pitches: number;
+    protection: string;
+    description: string;
+    location: string;
+    crag: {
+        id: string;
+        name: string;
+        routes: {
+            id: string;
+            name: string;
+            grade: string;
+            star_rating: number;
+        }[];
+    };
+    state: {
+        id: string;
+        name: string;
+    };
+    subarea: {
+        id: string;
+        name: string;
+    };
+}
+
 // Union types
 export type AreaDetails = StateDetails | SubareaDetails | CragDetails;

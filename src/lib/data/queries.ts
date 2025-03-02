@@ -3,13 +3,15 @@ import {
     GET_STATES_PREVIEW,
     GET_STATE_DETAILS,
     GET_SUBAREA_DETAILS,
-    GET_CRAG_DETAILS
+    GET_CRAG_DETAILS,
+    GET_ROUTE_DETAILS
 } from "@/graphql/queries";
 import {
     StatePreview,
     StateDetails,
     SubareaDetails,
-    CragDetails
+    CragDetails,
+    RouteDetails
 } from "@/graphql/types";
 
 export async function fetchStatesPreviews(): Promise<StatePreview[]> {
@@ -26,7 +28,7 @@ export async function fetchStateDetails(stateId: string): Promise<StateDetails |
         variables: { stateId },
     });
 
-    if (!data.states_by_pk) return null; // Return null if state doesn't exist
+    if (!data.states_by_pk) return null;
 
     return data.states_by_pk;
 };
@@ -38,7 +40,7 @@ export async function fetchSubareaDetails(subareaId: string): Promise<SubareaDet
         variables: { subareaId },
     });
 
-    if (!data.subarea_by_pk) return null; // Return null if subarea doesn't exist
+    if (!data.subarea_by_pk) return null;
 
     return data.subarea_by_pk;
 };
@@ -50,7 +52,19 @@ export async function fetchCragDetails(cragId: string): Promise<CragDetails | nu
         variables: { cragId: cragId },
     });
 
-    if (!data.crags_by_pk) return null; // Return null if subarea doesn't exist
+    if (!data.crags_by_pk) return null;
 
     return data.crags_by_pk;
+};
+
+export async function fetchRouteDetails(routeId: string): Promise<RouteDetails | null> {
+    const client = getClient();
+    const { data } = await client.query({
+        query: GET_ROUTE_DETAILS,
+        variables: { routeId },
+    });
+
+    if (!data.routes_by_pk) return null;
+
+    return data.routes_by_pk;
 };

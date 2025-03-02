@@ -102,3 +102,37 @@ export const GET_CRAG_DETAILS = gql`
     }
   }
 }`;
+
+export const GET_ROUTE_DETAILS = gql`
+  query GetRoutesDetails($routeId: uuid!) {
+  routes_by_pk(id: $routeId) {
+    id
+    name
+    grade
+    discipline
+    description
+    length
+    location
+    pitches
+    protection
+    star_rating
+    crag {
+      id
+      name
+      routes {
+        id
+        name
+        grade
+        star_rating
+      }
+    }
+    state {
+      id
+      name
+    }
+    subarea {
+      id
+      name
+    }
+  }
+}`
