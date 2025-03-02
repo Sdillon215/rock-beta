@@ -14,8 +14,6 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
         return notFound();
     }
 
-    console.log("Subarea", cragDetails);
-
     return (
         <main className="grid gap-4 max-w-screen-xl mx-auto md:py-4">
             <AreaPage

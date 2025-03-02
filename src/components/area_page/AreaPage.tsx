@@ -8,6 +8,7 @@ import {
 } from '@heroicons/react/16/solid'
 import { PhotoIcon } from '@heroicons/react/24/outline';
 import Carousel from '@/components/carousel/Carousel';
+import SubNav from '@/components/sub_nav/SubNav';
 import ClassicClimbsList from '@/components/classic_climbs_list/ClassicClimbsList';
 import Link from 'next/link';
 import { AreaDetails } from '@/graphql/types';
@@ -30,21 +31,7 @@ export default function AreaPage<T extends AreaDetails>({
         <section className="grid md:grid-flow-col gap-4 md:grid-cols-12">
             <div className="grid gap-4 md:col-span-3 content-start h-fit bg-gray-200">
                 <div className="md:hidden px-4">
-                    <span className="flex flex-row">
-                        <Link href={`/state`}>
-                            <p className="pr-1 text-blue-900 hover:text-blue-700">All Areas &gt;</p>
-                        </Link>
-                        {parentPaths && parentPaths.length > 0 && (
-                            <>
-                                {parentPaths.map((parent) => (
-                                    <Link href={parent.path} key={parent.path}>
-                                        <p className="pr-1 text-blue-900 hover:text-blue-700">{parent.pathName} &gt;</p>
-                                    </Link>
-                                ))}
-                            </>
-                        )}
-                        <p className="pr-1">{area.name}</p>
-                    </span>
+                    <SubNav parentPaths={parentPaths} currentName={area.name} />
                     <h1 className="text-2xl md:text-4xl font-bold">{area.name}</h1>
                     {"gps" in area && area.gps && (
                         <div className="flex flex-row items-center px-4">

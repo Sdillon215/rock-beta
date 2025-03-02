@@ -12,6 +12,7 @@ import { PhotoIcon } from '@heroicons/react/24/outline';
 import Carousel from '@/components/carousel/Carousel';
 import ClassicClimbsList from '@/components/classic_climbs_list/ClassicClimbsList';
 import Link from 'next/link';
+import SubNav from '@/components/sub_nav/SubNav';
 
 export const metadata: Metadata = {
     title: 'Route Page',
@@ -23,8 +24,6 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
     if (!route) {
         return notFound();
     }
-
-    console.log("Route", route);
 
     return (
         <main className="grid gap-4 max-w-screen-xl mx-auto md:py-4">
@@ -49,12 +48,25 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                 <div className="grid md:grid-cols-2 md:col-span-9 md:row-span-1 gap-4">
                     <div className="grid md:col-span-1 h-fit gap-8">
                         <div className="px-4">
-                            <span className="flex flex-row">
-                                <Link href={`/state`}>
-                                    <p className="pr-1 text-blue-900 hover:text-blue-700">All Areas &gt;</p>
-                                </Link>
-                                <p className="pr-1">{route.name}</p>
-                            </span>
+                            <SubNav
+                                currentName={route.name}
+                                parentPaths={
+                                    [
+                                        {
+                                            pathName: route.state.name,
+                                            path: `/state/${route.state.id}`
+                                        },
+                                        {
+                                            pathName: route.subarea.name,
+                                            path: `/subarea/${route.subarea.id}`
+                                        },
+                                        {
+                                            pathName: route.crag.name,
+                                            path: `/crag/${route.crag.id}`
+                                        }
+                                    ]
+                                }
+                            />
                             <h1 className="text-2xl md:text-4xl font-bold">{route.name}</h1>
                             <div className="flex flex-row items-center px-4">
                                 <p className="pr-4">Grade:</p>
