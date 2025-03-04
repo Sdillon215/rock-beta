@@ -26,7 +26,6 @@ export default function AreaPage<T extends AreaDetails>({
     childAreas,
     childPath
 }: AreaPageProps<T>) {
-
     return (
         <section className="grid md:grid-flow-col gap-4 md:grid-cols-12">
             <div className="grid gap-4 md:col-span-3 content-start h-fit bg-gray-200">
@@ -135,16 +134,24 @@ export default function AreaPage<T extends AreaDetails>({
                                 className="w-52 origin-top-right rounded-xl bg-gray-200 p-1 text-sm/6 text-black transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
                             >
                                 <MenuItem>
-                                    <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-gray-100">
-                                        <PencilIcon className="size-4 " />
-                                        Edit Details
-                                    </button>
-                                </MenuItem>
-                                <MenuItem>
-                                    <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-gray-100">
+                                    <Link
+                                        href={
+                                            area.__typename === "states" ?
+                                                `/add/subarea/${area.id}` :
+                                                area.__typename === "subarea" ?
+                                                    `/add/crag/${area.id}` :
+                                                    `/add/route/${area.id}`
+                                        }
+                                        className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-gray-100">
                                         <Square2StackIcon className="size-4 " />
-                                        Add Subarea
-                                    </button>
+                                        {
+                                            area.__typename === "states" ?
+                                                "Add Subarea" :
+                                                area.__typename === "subarea" ?
+                                                    "Add Crag" :
+                                                    "Add Route"
+                                        }
+                                    </Link>
                                 </MenuItem>
                                 <div className="my-1 h-px bg-white/5" />
                                 <MenuItem>

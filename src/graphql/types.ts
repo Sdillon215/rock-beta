@@ -8,6 +8,7 @@ export type ClassicRoute = {
 };
 
 export type AreaBase = {
+    __typename: string;
     id: string;
     name: string;
     routes_aggregate: {
