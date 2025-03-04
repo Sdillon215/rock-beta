@@ -1,7 +1,9 @@
 'use client';
+import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-
+import Link from 'next/link';
 import { Disclosure, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
+import { UserCircleIcon } from '@heroicons/react/16/solid';
 
 type NavigationItem = {
   name: string;
@@ -9,23 +11,10 @@ type NavigationItem = {
   current?: boolean;
 };
 
-type User = {
-  name: string;
-  email: string;
-  imageUrl: string;
-};
-
-const user: User = {
-  name: 'Tom Cook',
-  email: 'tom@example.com',
-  imageUrl:
-    'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-};
 
 const navigation: NavigationItem[] = [
-  { name: 'Rock Beta', href: '#', current: true },
-  { name: 'Routes', href: '#', current: false },
-  { name: 'Forum', href: '#', current: false },
+  { name: 'Rock Beta', href: '/', current: true },
+  { name: 'Areas', href: '/state', current: false },
 ];
 
 const userNavigation: NavigationItem[] = [
@@ -39,6 +28,8 @@ function classNames(...classes: string[]): string {
 }
 
 export default function NavBar() {
+  const pathname = usePathname();
+
   return (
     <div className="min-h-full">
       <Disclosure as="nav" className="bg-gray-800">
@@ -56,19 +47,22 @@ export default function NavBar() {
               </div>
               <div className="block">
                 <div className="ml-2 md:ml-6 flex items-baseline  md:space-x-4">
-                  {navigation.map((item) => (
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      aria-current={item.current ? 'page' : undefined}
-                      className={classNames(
-                        item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                        'rounded-md px-3 py-2 text-sm font-medium',
-                      )}
-                    >
-                      {item.name}
-                    </a>
-                  ))}
+                  {navigation.map((item) => {
+                    const isActive = pathname === item.href;
+                    return (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        aria-current={isActive ? 'page' : undefined}
+                        className={classNames(
+                          isActive ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          'rounded-md px-3 py-2 text-sm font-medium',
+                        )}
+                      >
+                        {item.name}
+                      </Link>
+                    )
+                  })}
                 </div>
               </div>
             </div>
@@ -78,7 +72,7 @@ export default function NavBar() {
                   <div>
                     <MenuButton className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
-                      <img alt="" src={user.imageUrl} className="size-8 rounded-full" />
+                      <UserCircleIcon className="size-8 text-gray-400" />
                     </MenuButton>
                   </div>
                   <MenuItems
