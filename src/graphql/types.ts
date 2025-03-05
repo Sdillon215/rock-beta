@@ -1,3 +1,5 @@
+import { UUID } from "crypto";
+
 export type ClassicRoute = {
     rank: number;
     routeName: string;
@@ -23,6 +25,14 @@ export type RouteBase = {
     name: string;
     grade: string;
     star_rating: number;
+};
+
+export type SubareaFormData = {
+    name: string;
+    description: string;
+    gps: string;
+    location: string;
+    state_id: string;
 };
 
 // partial types

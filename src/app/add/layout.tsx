@@ -4,7 +4,7 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex flex-col gap-4 max-w-screen-lg mx-auto">
+    <div className="flex flex-col py-4 max-w-screen-lg mx-auto">
       {children}
     </div>
   );
