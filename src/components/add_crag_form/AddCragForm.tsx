@@ -4,10 +4,11 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { addSubarea } from '@/lib/data/mutations';
+import { addCrag } from '@/lib/data/mutations';
+import { useRouter } from 'next/navigation';
 
-const subareaSchema = z.object({
-    name: z.string().min(2, 'Subarea name must be at least 2 characters'),
+const cragSchema = z.object({
+    name: z.string().min(2, 'Crag name must be at least 2 characters'),
     description: z.string().min(5, 'Description must be at least 25 characters'),
     gps: z
     .string()
@@ -18,37 +19,39 @@ const subareaSchema = z.object({
     location: z.string().min(10, 'Location must be at least 2 characters'),
 });
 
-type SubareaFormValues = z.infer<typeof subareaSchema>;
+type CragFormValues = z.infer<typeof cragSchema>;
 
-export default function AddSubAreaForm({ id }: { id: string }) {
+export default function AddCragForm({ id }: { id: string }) {
+    const router = useRouter();
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
         reset,
-    } = useForm<SubareaFormValues>({
-        resolver: zodResolver(subareaSchema),
+    } = useForm<CragFormValues>({
+        resolver: zodResolver(cragSchema),
     });
 
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-    const onSubmit = async (data: SubareaFormValues) => {
+    const onSubmit = async (data: CragFormValues) => {
         console.log('Form submitted:', data);
         try {
-            const subareaData = { ...data, state_id: id };
-            await addSubarea(subareaData);
+            const cragData = { ...data, parent_subarea_id: id };
+            const newCragId = await addCrag(cragData);
 
-            setSuccessMessage('Subarea added successfully!');
+            setSuccessMessage('Crag added successfully!');
             reset();
+            router.push(`/crag/${newCragId}`);
         } catch (error) {
             console.error(error);
-            setSuccessMessage('Error adding subarea.');
+            setSuccessMessage('Error adding crag.');
         }
     };
 
     return (
         <div className="my-auto rounded-lg">
-            <h2 className="text-2xl md:text-4xl font-bold mb-4">Add Subarea</h2>
+            <h2 className="text-2xl md:text-4xl font-bold mb-4">Add Crag</h2>
 
             {successMessage && (
                 <p className="text-sm text-green-600">{successMessage}</p>
@@ -56,7 +59,7 @@ export default function AddSubAreaForm({ id }: { id: string }) {
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div>
-                    <label className="block text-xl font-bold text-gray-700">Subarea Name</label>
+                    <label className="block text-xl font-bold text-gray-700">Crag Name</label>
                     <input
                         {...register('name')}
                         className="mt-1 block w-full p-2 border rounded-md"
@@ -97,10 +100,10 @@ export default function AddSubAreaForm({ id }: { id: string }) {
                     disabled={isSubmitting}
                     className="w-64 bg-gray-800 text-white p-2 rounded-md hover:bg-blue-500"
                 >
-                    {isSubmitting ? 'Adding...' : 'Add Subarea'}
+                    {isSubmitting ? 'Adding...' : 'Add Crag'}
                 </button>
                     </div>
             </form>
         </div>
     );
-};
+}

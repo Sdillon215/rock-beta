@@ -78,6 +78,15 @@ export const GET_SUBAREA_DETAILS = gql`
   }
 }`;
 
+export const GET_SUBAREA_PARENT_ID = gql`
+  query GetSubareaParentId($subareaId: uuid!) {
+    subarea_by_pk(id: $subareaId) {
+    state {
+      id
+    }
+  }
+}`;
+
 export const GET_CRAG_DETAILS = gql`
   query GetCragDetails($cragId: uuid!) {
     crags_by_pk(id: $cragId) {

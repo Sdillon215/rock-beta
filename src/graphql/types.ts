@@ -20,6 +20,10 @@ export type AreaBase = {
     };
 };
 
+export type StateId = {
+    state_id: string;
+}
+
 export type RouteBase = {
     id: string;
     name: string;
@@ -27,12 +31,11 @@ export type RouteBase = {
     star_rating: number;
 };
 
-export type SubareaFormData = {
+export type AreaFormData = {
     name: string;
     description: string;
     gps: string;
     location: string;
-    state_id: string;
 };
 
 // partial types
@@ -91,7 +94,14 @@ export type RouteDetails = RouteBase & {
         id: string;
         name: string;
     };
-}
+};
+
+export type SubareaFormData = AreaFormData & {
+    state_id: string;
+};
+export type CragFormData = AreaFormData & {
+    parent_subarea_id: string;
+};
 
 // Union types
 export type AreaDetails = StateDetails | SubareaDetails | CragDetails;

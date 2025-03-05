@@ -10,3 +10,11 @@ export const INSERT_SUBAREA = gql`
     }
   }
 `;
+
+export const INSERT_CRAG = gql`
+  mutation InsertCrag($object: crags_insert_input!) {
+    insert_crags_one(object: $object) {
+      id
+    }
+  }
+`;
