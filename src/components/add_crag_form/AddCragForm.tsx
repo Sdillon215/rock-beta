@@ -8,15 +8,15 @@ import { addCrag } from '@/lib/data/mutations';
 import { useRouter } from 'next/navigation';
 
 const cragSchema = z.object({
-    name: z.string().min(2, 'Crag name must be at least 2 characters'),
-    description: z.string().min(5, 'Description must be at least 25 characters'),
+    name: z.string().nonempty('Crag name is required'),
+    description: z.string().min(5, 'Description must be at least 5 characters'),
     gps: z
     .string()
     .regex(
       /^-?\d{1,3}(\.\d+)?,\s*-?\d{1,3}(\.\d+)?$/,
       'Invalid GPS coordinates (format: "latitude,longitude")'
     ),
-    location: z.string().min(10, 'Location must be at least 2 characters'),
+    location: z.string().nonempty('Location is required'),
 });
 
 type CragFormValues = z.infer<typeof cragSchema>;
@@ -106,4 +106,4 @@ export default function AddCragForm({ id }: { id: string }) {
             </form>
         </div>
     );
-}
+};

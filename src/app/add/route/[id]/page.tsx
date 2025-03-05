@@ -1,5 +1,12 @@
+import AddRouteForm from '@/components/add_route_form/AddRouteForm';
+
+
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
-    return (
-        <div>Route</div>
-    );
+    const id = (await params).id;
+  
+  return (
+    <main> 
+        <AddRouteForm id={id} />
+    </main>
+  );
 };

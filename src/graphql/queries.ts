@@ -112,6 +112,18 @@ export const GET_CRAG_DETAILS = gql`
   }
 }`;
 
+export const GET_CRAG_PARENT_IDS = gql`
+  query GetCragParentIds($cragId: uuid!) {
+    crags_by_pk(id: $cragId) {
+    state {
+      id
+    }
+    subarea {
+      id
+    }
+  }
+}`;
+
 export const GET_ROUTE_DETAILS = gql`
   query GetRoutesDetails($routeId: uuid!) {
   routes_by_pk(id: $routeId) {

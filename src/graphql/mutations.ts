@@ -18,3 +18,11 @@ export const INSERT_CRAG = gql`
     }
   }
 `;
+
+export const INSERT_ROUTE = gql`
+  mutation InsertRoute($object: routes_insert_input!) {
+    insert_routes_one(object: $object) {
+      id
+    }
+  }
+`;

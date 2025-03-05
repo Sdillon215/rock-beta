@@ -7,15 +7,15 @@ import * as z from 'zod';
 import { addSubarea } from '@/lib/data/mutations';
 
 const subareaSchema = z.object({
-    name: z.string().min(2, 'Subarea name must be at least 2 characters'),
-    description: z.string().min(5, 'Description must be at least 25 characters'),
+    name: z.string().nonempty('Subarea name is required'),
+    description: z.string().min(5, 'Description must be at least 5 characters'),
     gps: z
     .string()
     .regex(
       /^-?\d{1,3}(\.\d+)?,\s*-?\d{1,3}(\.\d+)?$/,
       'Invalid GPS coordinates (format: "latitude,longitude")'
     ),
-    location: z.string().min(10, 'Location must be at least 2 characters'),
+    location: z.string().nonempty('Location is required'),
 });
 
 type SubareaFormValues = z.infer<typeof subareaSchema>;
