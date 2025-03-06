@@ -6,7 +6,6 @@ import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import {
     ChevronDownIcon,
     PencilIcon,
-    Square2StackIcon,
 } from '@heroicons/react/16/solid'
 import { PhotoIcon } from '@heroicons/react/24/outline';
 import Carousel from '@/components/carousel/Carousel';
@@ -125,12 +124,6 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                                         <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-gray-100">
                                             <PencilIcon className="size-4 " />
                                             Edit Details
-                                        </button>
-                                    </MenuItem>
-                                    <MenuItem>
-                                        <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-gray-100">
-                                            <Square2StackIcon className="size-4 " />
-                                            Add Subroute
                                         </button>
                                     </MenuItem>
                                     <div className="my-1 h-px bg-white/5" />

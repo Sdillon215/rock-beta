@@ -1,5 +1,3 @@
-import { UUID } from "crypto";
-
 export type ClassicRoute = {
     rank: number;
     routeName: string;

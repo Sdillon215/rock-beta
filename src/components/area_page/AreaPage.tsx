@@ -3,7 +3,6 @@ import MapFiller from '../../../public/map_filler.png';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import {
     ChevronDownIcon,
-    PencilIcon,
     Square2StackIcon,
 } from '@heroicons/react/16/solid'
 import { PhotoIcon } from '@heroicons/react/24/outline';
