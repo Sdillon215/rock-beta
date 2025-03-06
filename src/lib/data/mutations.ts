@@ -1,15 +1,18 @@
 "use server";
 
 import { getClient } from '@/lib/apollo_client';
+import { put } from '@vercel/blob';
 import {
   INSERT_SUBAREA,
   INSERT_CRAG,
   INSERT_ROUTE,
+  INSERT_ROUTE_IMAGE,
 } from '@/graphql/mutations';
 import {
   SubareaFormData,
   CragFormData,
   RouteFormData,
+  ImageFormData,
 } from '@/graphql/types';
 import {
   fetchSubareaParentId,
@@ -68,4 +71,35 @@ export const addRoute = async (route: RouteFormData) => {
     console.error('Error inserting route:', error);
     throw error;
   }
+};
+
+export const uploadRouteImage = async (imageData: ImageFormData) => {
+  const client = getClient();
+  console.log("uploadRouteImage function", imageData);
+  const imageFile = imageData.image as File;
+
+  try {
+    const blob = await put(imageFile.name, imageFile, {
+      access: 'public',
+    });
+
+    const newImageData = {
+      image_url: blob.url,
+      route_id: imageData.parent_id,
+      caption: imageData.caption,
+    }
+
+    const { data } = await client.mutate({
+      mutation: INSERT_ROUTE_IMAGE,
+      variables: { object: newImageData },
+    });
+
+    console.log('Image uploaded:', data.insert_route_images_one);
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    throw error;
+  };
+
+
+  return;
 };

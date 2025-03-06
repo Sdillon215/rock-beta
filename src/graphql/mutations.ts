@@ -26,3 +26,13 @@ export const INSERT_ROUTE = gql`
     }
   }
 `;
+
+export const INSERT_ROUTE_IMAGE = gql`
+  mutation InsertRouteImage($object: route_images_insert_input!) {
+    insert_route_images_one(object: $object) {
+      id
+      image_url
+      caption
+    }
+  }
+`;

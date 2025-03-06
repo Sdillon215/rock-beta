@@ -54,6 +54,12 @@ export type RouteFormData = {
     crag_id: string;
 };
 
+export type ImageFormData = {
+    image: File;
+    parent_id: string;
+    caption: string;
+};
+
 // partial types
 export type StatePreview = AreaBase & {
     subareas: AreaBase[];

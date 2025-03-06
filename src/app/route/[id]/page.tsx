@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
+import { Fragment } from 'react';
 import { fetchRouteDetails } from '@/lib/data/queries';
 import { StarIcon } from "@heroicons/react/16/solid";
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
@@ -7,11 +8,12 @@ import {
     ChevronDownIcon,
     PencilIcon,
 } from '@heroicons/react/16/solid'
-import { PhotoIcon } from '@heroicons/react/24/outline';
 import Carousel from '@/components/carousel/Carousel';
 import ClassicClimbsList from '@/components/classic_climbs_list/ClassicClimbsList';
 import Link from 'next/link';
 import SubNav from '@/components/sub_nav/SubNav';
+import AddPhotoModal from '@/components/add_photo_modal/AddPhotoModal';
+import ContributeMenu from '@/components/contribute_menu/ContributeMenu';
 
 export const metadata: Metadata = {
     title: 'Route Page',
@@ -109,32 +111,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                     </div>
                     <div className="grid gap-4 grid-flow-row justify-items-end content-start md:col-span-1 p-4">
                         <div className="w-52 text-right">
-                            <Menu>
-                                <MenuButton className="inline-flex items-center gap-2 rounded-md bg-gray-800 py-1.5 px-3 text-sm/6 font-semibold text-white shadow-inner shadow-white/10 focus:outline-none data-[hover]:bg-gray-700 data-[open]:bg-gray-700 data-[focus]:outline-1 data-[focus]:outline-white">
-                                    Contribute Beta
-                                    <ChevronDownIcon className="size-4 fill-white/60" />
-                                </MenuButton>
-
-                                <MenuItems
-                                    transition
-                                    anchor="bottom end"
-                                    className="w-52 origin-top-right rounded-xl bg-gray-200 p-1 text-sm/6 text-black transition duration-100 ease-out [--anchor-gap:var(--spacing-1)] focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
-                                >
-                                    <MenuItem>
-                                        <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-gray-100">
-                                            <PencilIcon className="size-4 " />
-                                            Edit Details
-                                        </button>
-                                    </MenuItem>
-                                    <div className="my-1 h-px bg-white/5" />
-                                    <MenuItem>
-                                        <button className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-gray-100">
-                                            <PhotoIcon className="size-4 " />
-                                            Add Photo
-                                        </button>
-                                    </MenuItem>
-                                </MenuItems>
-                            </Menu>
+                            <ContributeMenu parentId={route.id} parentName={route.name} />
                         </div>
                         <div className="relative aspect-square w-full">
                             <Carousel />
