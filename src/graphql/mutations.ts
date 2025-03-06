@@ -36,3 +36,13 @@ export const INSERT_ROUTE_IMAGE = gql`
     }
   }
 `;
+
+export const INSERT_CRAG_IMAGE = gql`
+  mutation InsertCragImage($object: crag_images_insert_input!) {
+    insert_crag_images_one(object: $object) {
+      id
+      image_url
+      caption
+    }
+  }
+`;

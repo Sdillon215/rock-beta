@@ -1,11 +1,13 @@
 'use client';
 
-import { PhotoIcon } from '@heroicons/react/16/solid';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { uploadRouteImage } from '@/lib/data/mutations';
+import {
+    insertRouteImage,
+    insertCragImage,
+} from '@/lib/data/mutations';
 
 const photoSchema = z.object({
     image: z
@@ -41,6 +43,8 @@ export default function AddPhotoModal({ parentId, parentName, parentType, onClos
         onClose(); // Call onClose from ContributeMenu
     };
 
+    console.log(parentType);
+
     const onSubmit = async (formData: PhotoFormData) => {
         try {
             const imageData = {
@@ -51,7 +55,7 @@ export default function AddPhotoModal({ parentId, parentName, parentType, onClos
 
             if (parentType === 'route') {
                 await insertRouteImage(imageData);
-            } else if (parentType === 'crag') {
+            } else if (parentType === 'crags') {
                 await insertCragImage(imageData);
             } else if (parentType === 'subarea') {
                 // await insertSubareaImage(imageData);

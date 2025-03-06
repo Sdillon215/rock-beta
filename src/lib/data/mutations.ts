@@ -7,6 +7,7 @@ import {
   INSERT_CRAG,
   INSERT_ROUTE,
   INSERT_ROUTE_IMAGE,
+  INSERT_CRAG_IMAGE,
 } from '@/graphql/mutations';
 import {
   SubareaFormData,
@@ -73,18 +74,24 @@ export const addRoute = async (route: RouteFormData) => {
   }
 };
 
-export const uploadRouteImage = async (imageData: ImageFormData) => {
+export const uploadBlobImage = async (imageFile: File) => {
+
+  const blob = await put(imageFile.name, imageFile, {
+    access: 'public',
+  });
+
+  return blob.url;
+};
+
+export const insertRouteImage = async (imageData: ImageFormData) => {
   const client = getClient();
-  console.log("uploadRouteImage function", imageData);
   const imageFile = imageData.image as File;
 
   try {
-    const blob = await put(imageFile.name, imageFile, {
-      access: 'public',
-    });
+    const blobUrl = await uploadBlobImage(imageFile);
 
     const newImageData = {
-      image_url: blob.url,
+      image_url: blobUrl,
       route_id: imageData.parent_id,
       caption: imageData.caption,
     }
@@ -100,6 +107,32 @@ export const uploadRouteImage = async (imageData: ImageFormData) => {
     throw error;
   };
 
+  return;
+};
+
+export const insertCragImage = async (imageData: ImageFormData) => {
+  const client = getClient();
+  const imageFile = imageData.image as File;
+
+  try {
+    const blobUrl = await uploadBlobImage(imageFile);
+
+    const newImageData = {
+      image_url: blobUrl,
+      crag_id: imageData.parent_id,
+      caption: imageData.caption,
+    }
+
+    const { data } = await client.mutate({
+      mutation: INSERT_CRAG_IMAGE,
+      variables: { object: newImageData },
+    });
+
+    console.log('Image uploaded:', data.insert_crag_images_one);
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    throw error;
+  };
 
   return;
 };
