@@ -19,10 +19,11 @@ type PhotoFormData = z.infer<typeof photoSchema>;
 type AddPhotoModalProps = {
     parentId: string;
     parentName: string;
+    parentType: string;
     onClose: () => void; // Accept onClose prop
 };
 
-export default function AddPhotoModal({ parentId, parentName, onClose }: AddPhotoModalProps) {
+export default function AddPhotoModal({ parentId, parentName, parentType, onClose }: AddPhotoModalProps) {
     const {
         register,
         handleSubmit,
@@ -47,7 +48,17 @@ export default function AddPhotoModal({ parentId, parentName, onClose }: AddPhot
                 caption: formData.caption,
                 parent_id: parentId,
             };
-            await uploadRouteImage(imageData);
+
+            if (parentType === 'route') {
+                await insertRouteImage(imageData);
+            } else if (parentType === 'crag') {
+                await insertCragImage(imageData);
+            } else if (parentType === 'subarea') {
+                // await insertSubareaImage(imageData);
+            } else if (parentType === 'states') {
+                // await insertStateImage(imageData);
+            };
+
             setSuccessMessage('Photo added successfully!');
             reset();
         } catch (error) {
