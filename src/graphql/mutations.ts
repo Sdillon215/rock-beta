@@ -56,3 +56,13 @@ export const INSERT_SUBAREA_IMAGE = gql`
     }
   }
 `;
+
+export const INSERT_STATE_IMAGE = gql`
+  mutation InsertCragImage($object: state_images_insert_input!) {
+    insert_state_images_one(object: $object) {
+      id
+      image_url
+      caption
+    }
+  }
+`;

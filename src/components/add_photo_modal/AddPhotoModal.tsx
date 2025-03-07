@@ -8,7 +8,7 @@ import {
     insertRouteImage,
     insertCragImage,
     insertSubareaImage,
-    // insertStateImage,
+    insertStateImage,
 } from '@/lib/data/mutations';
 
 const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB in bytes
@@ -65,7 +65,7 @@ export default function AddPhotoModal({ parentId, parentName, parentType, onClos
             } else if (parentType === 'subarea') {
                 await insertSubareaImage(imageData);
             } else if (parentType === 'states') {
-                // await insertStateImage(imageData);
+                await insertStateImage(imageData);
             }
 
             setSuccessMessage('Photo added successfully!');

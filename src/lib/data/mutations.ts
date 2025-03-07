@@ -9,6 +9,7 @@ import {
   INSERT_ROUTE_IMAGE,
   INSERT_CRAG_IMAGE,
   INSERT_SUBAREA_IMAGE,
+  INSERT_STATE_IMAGE,
 } from '@/graphql/mutations';
 import {
   SubareaFormData,
@@ -157,6 +158,33 @@ export const insertSubareaImage = async (imageData: ImageFormData) => {
     });
 
     console.log('Image uploaded:', data.insert_subarea_images_one);
+  } catch (error) {
+    console.error('Error uploading image:', error);
+    throw error;
+  };
+
+  return;
+};
+
+export const insertStateImage = async (imageData: ImageFormData) => {
+  const client = getClient();
+  const imageFile = imageData.image as File;
+
+  try {
+    const blobUrl = await uploadBlobImage(imageFile);
+
+    const newImageData = {
+      image_url: blobUrl,
+      state_id: imageData.parent_id,
+      caption: imageData.caption,
+    }
+
+    const { data } = await client.mutate({
+      mutation: INSERT_STATE_IMAGE,
+      variables: { object: newImageData },
+    });
+
+    console.log('Image uploaded:', data.insert_state_images_one);
   } catch (error) {
     console.error('Error uploading image:', error);
     throw error;
