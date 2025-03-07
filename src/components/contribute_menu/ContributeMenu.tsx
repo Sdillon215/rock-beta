@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronDownIcon, PencilIcon, Square2StackIcon } from '@heroicons/react/16/solid';
+import { ChevronDownIcon, Square2StackIcon } from '@heroicons/react/16/solid';
 import { PhotoIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import AddPhotoModal from '@/components/add_photo_modal/AddPhotoModal';

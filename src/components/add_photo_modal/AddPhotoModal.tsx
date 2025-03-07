@@ -7,12 +7,19 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
     insertRouteImage,
     insertCragImage,
+    insertSubareaImage,
+    // insertStateImage,
 } from '@/lib/data/mutations';
+
+const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB in bytes
 
 const photoSchema = z.object({
     image: z
         .instanceof(FileList, { message: 'Image is required' })
-        .refine((files) => files.length > 0, { message: 'You must upload an image' }),
+        .refine((files) => files.length > 0, { message: 'You must upload an image' })
+        .refine((files) => files[0]?.size <= MAX_FILE_SIZE, {
+            message: 'File size must be less than 1MB',
+        }),
     caption: z.string().nonempty('Caption is required'),
 });
 
@@ -43,8 +50,6 @@ export default function AddPhotoModal({ parentId, parentName, parentType, onClos
         onClose(); // Call onClose from ContributeMenu
     };
 
-    console.log(parentType);
-
     const onSubmit = async (formData: PhotoFormData) => {
         try {
             const imageData = {
@@ -58,10 +63,10 @@ export default function AddPhotoModal({ parentId, parentName, parentType, onClos
             } else if (parentType === 'crags') {
                 await insertCragImage(imageData);
             } else if (parentType === 'subarea') {
-                // await insertSubareaImage(imageData);
+                await insertSubareaImage(imageData);
             } else if (parentType === 'states') {
                 // await insertStateImage(imageData);
-            };
+            }
 
             setSuccessMessage('Photo added successfully!');
             reset();
@@ -93,11 +98,10 @@ export default function AddPhotoModal({ parentId, parentName, parentType, onClos
                         {errors.caption && <p className="text-red-500">{errors.caption.message}</p>}
                     </div>
                     <div className="flex gap-4">
-
                         <button type="submit" disabled={isSubmitting} className="px-4 py-2 bg-blue-500 text-white rounded-md">
                             {isSubmitting ? 'Uploading...' : 'Upload'}
                         </button>
-                        <button onClick={handleClose} className="px-4 py-2 bg-red-500 text-white rounded-md">
+                        <button onClick={handleClose} type="button" className="px-4 py-2 bg-red-500 text-white rounded-md">
                             Cancel
                         </button>
                     </div>

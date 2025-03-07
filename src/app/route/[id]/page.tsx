@@ -1,18 +1,11 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { Fragment } from 'react';
 import { fetchRouteDetails } from '@/lib/data/queries';
 import { StarIcon } from "@heroicons/react/16/solid";
-import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import {
-    ChevronDownIcon,
-    PencilIcon,
-} from '@heroicons/react/16/solid'
 import Carousel from '@/components/carousel/Carousel';
 import ClassicClimbsList from '@/components/classic_climbs_list/ClassicClimbsList';
 import Link from 'next/link';
 import SubNav from '@/components/sub_nav/SubNav';
-import AddPhotoModal from '@/components/add_photo_modal/AddPhotoModal';
 import ContributeMenu from '@/components/contribute_menu/ContributeMenu';
 
 export const metadata: Metadata = {
