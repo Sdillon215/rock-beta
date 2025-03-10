@@ -168,7 +168,7 @@ export default function AddRouteForm({ id }: { id: string }) {
                     <textarea
                         {...register('location')}
                         className="mt-1 block w-full h-36 p-2 border rounded-md"
-                        placeholder="Enter description"
+                        placeholder="Describe location and how to get there"
                     />
                     {errors.location && <p className="text-red-500 text-xs">{errors.location.message}</p>}
                 </div>
@@ -177,7 +177,7 @@ export default function AddRouteForm({ id }: { id: string }) {
                     <textarea
                         {...register('protection')}
                         className="mt-1 block w-full h-36 p-2 border rounded-md"
-                        placeholder="Enter description"
+                        placeholder="Describe protection. i.e. # of draws, sizes of gear, etc."
                     />
                     {errors.protection && <p className="text-red-500 text-xs">{errors.protection.message}</p>}
                 </div>
