@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from "next/navigation";
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -10,6 +11,7 @@ import {
     insertSubareaImage,
     insertStateImage,
 } from '@/lib/data/mutations';
+import { redirect } from 'next/navigation';
 
 const MAX_FILE_SIZE = 1 * 1024 * 1024; // 1MB in bytes
 
@@ -33,6 +35,7 @@ type AddPhotoModalProps = {
 };
 
 export default function AddPhotoModal({ parentId, parentName, parentType, onClose }: AddPhotoModalProps) {
+    const router = useRouter();
     const {
         register,
         handleSubmit,
@@ -70,6 +73,7 @@ export default function AddPhotoModal({ parentId, parentName, parentType, onClos
 
             setSuccessMessage('Photo added successfully!');
             reset();
+            router.refresh();
         } catch (error) {
             console.error(error);
             setSuccessMessage('Error adding photo.');
