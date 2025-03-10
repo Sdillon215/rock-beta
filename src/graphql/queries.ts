@@ -51,6 +51,11 @@ export const GET_STATE_DETAILS = gql`
         }
       }
     }
+    state_images {
+      id
+      caption
+      image_url
+    }
   }
 }`;
 
@@ -74,6 +79,11 @@ export const GET_SUBAREA_DETAILS = gql`
           count(distinct: false)
         }
       }
+    }
+    subarea_images {
+      id
+      caption
+      image_url
     }
   }
 }`;
@@ -108,6 +118,11 @@ export const GET_CRAG_DETAILS = gql`
     subarea {
       id
       name
+    }
+    crag_images {
+      id
+      caption
+      image_url
     }
   }
 }`;
@@ -154,6 +169,11 @@ export const GET_ROUTE_DETAILS = gql`
     subarea {
       id
       name
+    }
+    route_images {
+      id
+      caption
+      image_url
     }
   }
 }`
