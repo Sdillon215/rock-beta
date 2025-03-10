@@ -107,7 +107,14 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                             <ContributeMenu parentId={route.id} parentName={route.name} />
                         </div>
                         <div className="relative aspect-square w-full">
-                            <Carousel />
+                            {route.route_images.length > 0 ? (
+                                <Carousel imageData={route.route_images} />
+                            ) :
+                                (
+                                    <div className="w-full bg-gray-200 h-full flex items-center justify-center">
+                                        <h3>There are no photos yet</h3>
+                                    </div>
+                                )}
                         </div>
                     </div>
                     <div className="md:col-span-2">

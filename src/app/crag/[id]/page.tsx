@@ -30,6 +30,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                         }
                     ]
                 }
+                images={cragDetails.crag_images}
             />
         </main>
     );

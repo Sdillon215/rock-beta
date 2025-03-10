@@ -28,6 +28,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                 }
                 childAreas={subareaDetails.crags}
                 childPath="/crag"
+                images={subareaDetails.subarea_images}
             />
         </main>
     );

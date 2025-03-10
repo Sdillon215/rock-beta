@@ -5,20 +5,22 @@ import SubNav from '@/components/sub_nav/SubNav';
 import ContributeMenu from '@/components/contribute_menu/ContributeMenu';
 import ClassicClimbsList from '@/components/classic_climbs_list/ClassicClimbsList';
 import Link from 'next/link';
-import { AreaDetails } from '@/graphql/types';
+import { AreaDetails, BlobImageData } from '@/graphql/types';
 
 type AreaPageProps<T extends AreaDetails> = {
     area: T;
     parentPaths?: { pathName: string; path: string }[];
     childAreas?: { id: string; name: string; routes_aggregate: { aggregate: { count: number } } }[];
     childPath?: string;
+    images: BlobImageData[];
 };
 
 export default function AreaPage<T extends AreaDetails>({
     area,
     parentPaths,
     childAreas,
-    childPath
+    childPath,
+    images
 }: AreaPageProps<T>) {
     return (
         <section className="grid md:grid-flow-col gap-4 md:grid-cols-12">
@@ -119,7 +121,14 @@ export default function AreaPage<T extends AreaDetails>({
                         <ContributeMenu area={area} parentId={area.id} parentName={area.name} />
                     </div>
                     <div className="relative aspect-square w-full">
-                        <Carousel />
+                        {images.length > 0 ? (
+                            <Carousel imageData={images} />
+                        ) :
+                            (
+                                <div className="w-full bg-gray-200 h-full flex items-center justify-center">
+                                    <h3>There are no photos yet</h3>
+                                </div>
+                            )}
                     </div>
                 </div>
                 <div className="md:col-span-2">

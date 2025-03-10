@@ -20,6 +20,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                 area={stateDetails}
                 childAreas={stateDetails.subareas}
                 childPath="/subarea"
+                images={stateDetails.state_images}
             />
         </main>
     );
