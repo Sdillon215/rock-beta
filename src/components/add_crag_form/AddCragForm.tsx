@@ -63,7 +63,7 @@ export default function AddCragForm({ id }: { id: string }) {
                     <input
                         {...register('name')}
                         className="mt-1 block w-full p-2 border rounded-md"
-                        placeholder="Enter subarea name"
+                        placeholder="Enter crag name"
                     />
                     {errors.name && <p className="text-red-500 text-xs">{errors.name.message}</p>}
                 </div>
@@ -81,7 +81,7 @@ export default function AddCragForm({ id }: { id: string }) {
                     <textarea
                         {...register('gps')}
                         className="mt-1 block w-full p-2 border rounded-md"
-                        placeholder="Enter description"
+                        placeholder="Enter GPS coordinates (format: 'latitude,longitude')"
                     />
                     {errors.gps && <p className="text-red-500 text-xs">{errors.gps.message}</p>}
                 </div>
@@ -90,7 +90,7 @@ export default function AddCragForm({ id }: { id: string }) {
                     <textarea
                         {...register('location')}
                         className="mt-1 block w-full p-2 border rounded-md"
-                        placeholder="Enter description"
+                        placeholder="Describe location and how to get there"
                     />
                     {errors.location && <p className="text-red-500 text-xs">{errors.location.message}</p>}
                 </div>
