@@ -60,6 +60,12 @@ export type ImageFormData = {
     caption: string;
 };
 
+export type ImageData = {
+    id: string;
+    caption: string;
+    image_url: string;
+}
+
 // partial types
 export type StatePreview = AreaBase & {
     subareas: AreaBase[];
@@ -69,6 +75,7 @@ export type StateDetails = AreaBase & {
     gps: string;
     description: string;
     subareas: AreaBase[];
+    state_images: ImageData[];
 };
 
 export type SubareaDetails = AreaBase & {
@@ -80,6 +87,7 @@ export type SubareaDetails = AreaBase & {
         name: string;
     };
     crags: AreaBase[];
+    subarea_images: ImageData[];
 };
 
 export type CragDetails = AreaBase & {
@@ -89,6 +97,7 @@ export type CragDetails = AreaBase & {
     routes: RouteBase[];
     state: AreaBase;
     subarea: AreaBase;
+    crag_images: ImageData[];
 };
 
 export type RouteDetails = RouteBase & {
@@ -116,6 +125,7 @@ export type RouteDetails = RouteBase & {
         id: string;
         name: string;
     };
+    route_images: ImageData[];
 };
 
 export type SubareaFormData = AreaFormData & {
