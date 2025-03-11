@@ -176,4 +176,31 @@ export const GET_ROUTE_DETAILS = gql`
       image_url
     }
   }
-}`
+}`;
+
+export const GET_SEARCH_ROUTES = gql`
+  query GetSearchRoutes($grade: String, $pitches: Int, $starRating: Int, $discipline: [String!]) {
+    routes(
+      where: {
+        grade: { _eq: $grade }
+        pitches: { _eq: $pitches }
+        star_rating: { _gt: $starRating }
+        discipline: { _in: $discipline }
+      }
+    ) {
+      id
+      name
+      star_rating
+      grade
+      discipline
+      state {
+        id
+        name
+      }
+      crag {
+        id
+        name
+      }
+    }
+  }
+`;
