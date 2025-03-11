@@ -1,30 +1,26 @@
-"use client";
-
 import RouteFinder from "@/components/route_finder/RouteFinder";
-import { useSearchParams } from "next/navigation";
+import { RouteFinderFormData } from "@/graphql/types";
+import { fetchRouteFinderRoutes } from "@/lib/data/queries";
 
-export default function Page() {
-    const searchParams = useSearchParams();
+export default async function Page({ searchParams }: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
+    const urlParams = await searchParams;
+    const grade = urlParams.grade;
+    const pitches = urlParams.pitches;
+    const rating = urlParams.star_rating;
+    const discipline = [];
+    if (urlParams.trad === "true") discipline.push("Trad");
+    if (urlParams.sport === "true") discipline.push("Sport");
+    if (urlParams.toprope === "true") discipline.push("Toprope");
+    if (discipline.length === 0) discipline.push("Trad", "Sport", "Toprope");
 
-    console.log(searchParams.toString());
-    // Get query params
-    const grade = searchParams.get("grade") || "5.10";
-    const pitches = searchParams.get("pitches") || "1";
-    const rating = searchParams.get("rating") || "3";
-    const trad = searchParams.get("trad") === "true";
-    const sport = searchParams.get("sport") === "true";
-    const toprope = searchParams.get("toprope") === "true";
+    const variables: RouteFinderFormData = {
+        grade: grade!,
+        pitches: parseInt(pitches!),
+        star_rating: parseInt(rating!),
+        discipline: discipline,
+    };
 
-    // Simulated API call (replace with actual API request)
-    const filteredRoutes = [
-        { id: 1, name: "Super Crack", grade: "5.10", pitches: "1", rating: "3", type: "Trad" },
-        { id: 2, name: "Sporty Route", grade: "5.11", pitches: "2", rating: "4", type: "Sport" },
-    ].filter(route =>
-        route.grade === grade &&
-        route.pitches === pitches &&
-        route.rating === rating &&
-        ((trad && route.type === "Trad") || (sport && route.type === "Sport") || (toprope && route.type === "Toprope"))
-    );
+    const filteredRoutes = await fetchRouteFinderRoutes(variables);
 
     return (
         <main className="grid grid-cols-1 gap-4 max-w-screen-md mx-auto py-4">
@@ -32,10 +28,10 @@ export default function Page() {
             <div className="grid justify-items-start">
                 <RouteFinder />
             </div>
-            {filteredRoutes.length > 0 ? (
+            {filteredRoutes && filteredRoutes.length > 0 ? (
                 <ul>
                     {filteredRoutes.map((route) => (
-                        <li key={route.id}>{route.name} - {route.grade} ({route.type})</li>
+                        <li key={route.id}>{route.name} - {route.grade} ({route.discipline})</li>
                     ))}
                 </ul>
             ) : (

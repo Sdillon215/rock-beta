@@ -179,12 +179,12 @@ export const GET_ROUTE_DETAILS = gql`
 }`;
 
 export const GET_SEARCH_ROUTES = gql`
-  query GetSearchRoutes($grade: String, $pitches: Int, $starRating: Int, $discipline: [String!]) {
+  query GetSearchRoutes($grade: String, $pitches: Int, $star_rating: Int, $discipline: [String!]) {
     routes(
       where: {
         grade: { _eq: $grade }
         pitches: { _eq: $pitches }
-        star_rating: { _gt: $starRating }
+        star_rating: { _gte: $star_rating }
         discipline: { _in: $discipline }
       }
     ) {

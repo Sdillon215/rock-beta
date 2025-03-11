@@ -1,10 +1,11 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { useSearchParams, redirect } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Checkbox } from '@headlessui/react';
 import { Select, Field, Label } from '@headlessui/react';
 import { ClimbingGrades } from '@/graphql/types';
+import { useRouter } from 'next/navigation';
 
 const pitches = [
     { pitches: 1, textValue: '1' },
@@ -22,13 +23,14 @@ const ratings = [
 ];
 
 export default function RouteFinder() {
+    const router = useRouter();
     const searchParams = useSearchParams();
 
     const getParam = useCallback((key: string, defaultValue: string) => searchParams.get(key) ?? defaultValue, [searchParams]);
 
     const [selectedGrade, setSelectedGrade] = useState(getParam('grade', '5.1'));
     const [selectedPitches, setSelectedPitches] = useState(getParam('pitches', '1'));
-    const [selectedRating, setSelectedRating] = useState(getParam('rating', '0'));
+    const [selectedRating, setSelectedRating] = useState(getParam('star_rating', '0'));
     const [tradEnabled, setTradEnabled] = useState(getParam('trad', 'false') === 'true');
     const [sportEnabled, setSportEnabled] = useState(getParam('sport', 'false') === 'true');
     const [topropeEnabled, setTopropeEnabled] = useState(getParam('toprope', 'false') === 'true');
@@ -36,7 +38,7 @@ export default function RouteFinder() {
     useEffect(() => {
         setSelectedGrade(getParam('grade', '5.1'));
         setSelectedPitches(getParam('pitches', '1'));
-        setSelectedRating(getParam('rating', '0'));
+        setSelectedRating(getParam('star_rating', '0'));
         setTradEnabled(getParam('trad', 'false') === 'true');
         setSportEnabled(getParam('sport', 'false') === 'true');
         setTopropeEnabled(getParam('toprope', 'false') === 'true');
@@ -46,13 +48,13 @@ export default function RouteFinder() {
         const queryParams = new URLSearchParams({
             grade: selectedGrade,
             pitches: selectedPitches,
-            rating: selectedRating,
+            star_rating: selectedRating,
             trad: tradEnabled.toString(),
             sport: sportEnabled.toString(),
             toprope: topropeEnabled.toString()
         }).toString();
 
-        redirect(`/route-finder?${queryParams}`);
+        router.push(`/route-finder?${queryParams}`);
     };
 
     return (

@@ -104,7 +104,7 @@ export async function fetchCragParentIds(cragId: string): Promise<CragParentIds 
 };
 
 
-export async function fetchRouteFinderRoutes(variables: RouteFinderFormData): Promise<SearchRoutes | null> {
+export async function fetchRouteFinderRoutes(variables: RouteFinderFormData): Promise<SearchRoutes[]> {
     const client = getClient();
     const { data } = await client.query({
         query: GET_SEARCH_ROUTES,
@@ -115,8 +115,6 @@ export async function fetchRouteFinderRoutes(variables: RouteFinderFormData): Pr
             discipline: variables.discipline
         }
     });
-
-    if (!data.routes) return null;
 
     return data.routes;
 };
