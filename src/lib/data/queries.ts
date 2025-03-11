@@ -6,7 +6,8 @@ import {
     GET_CRAG_DETAILS,
     GET_ROUTE_DETAILS,
     GET_SUBAREA_PARENT_ID,
-    GET_CRAG_PARENT_IDS
+    GET_CRAG_PARENT_IDS,
+    GET_SEARCH_ROUTES
 } from "@/graphql/queries";
 import {
     StatePreview,
@@ -15,7 +16,9 @@ import {
     CragDetails,
     RouteDetails,
     StateId,
-    CragParentIds
+    CragParentIds,
+    RouteFinderFormData,
+    SearchRoutes
 } from "@/graphql/types";
 
 export async function fetchStatesPreviews(): Promise<StatePreview[]> {
@@ -98,4 +101,22 @@ export async function fetchCragParentIds(cragId: string): Promise<CragParentIds 
         state_id: data.crags_by_pk.state.id,
         subarea_id: data.crags_by_pk.subarea.id
     };
+};
+
+
+export async function fetchRouteFinderRoutes(variables: RouteFinderFormData): Promise<SearchRoutes | null> {
+    const client = getClient();
+    const { data } = await client.query({
+        query: GET_SEARCH_ROUTES,
+        variables: {
+            grade: variables.grade,
+            pitches: variables.pitches,
+            star_rating: variables.star_rating,
+            discipline: variables.discipline
+        }
+    });
+
+    if (!data.routes) return null;
+
+    return data.routes;
 };
