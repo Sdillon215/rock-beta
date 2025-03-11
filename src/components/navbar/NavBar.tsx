@@ -15,6 +15,7 @@ type NavigationItem = {
 const navigation: NavigationItem[] = [
   { name: 'Rock Beta', href: '/', current: true },
   { name: 'Areas', href: '/state', current: false },
+  { name: 'Route Finder', href: '/route-finder', current: false },
 ];
 
 const userNavigation: NavigationItem[] = [
