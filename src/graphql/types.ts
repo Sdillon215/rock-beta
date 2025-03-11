@@ -128,9 +128,22 @@ export type RouteDetails = RouteBase & {
     route_images: BlobImageData[];
 };
 
+export type SearchRoutes = RouteBase & {
+    discipline: string;
+    state: {
+        id: string;
+        name: string;
+    }
+    crag: {
+        id: string;
+        name: string;
+    }
+};
+
 export type SubareaFormData = AreaFormData & {
     state_id: string;
 };
+
 export type CragFormData = AreaFormData & {
     parent_subarea_id: string;
 };
