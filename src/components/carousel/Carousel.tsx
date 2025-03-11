@@ -40,8 +40,9 @@ export default function Carousel({ imageData }: { imageData?: BlobImageData[] })
         const interval = setInterval(() => {
             setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
         }, 5000); // Change slide every 5 seconds
+
         return () => clearInterval(interval);
-    }, []);
+    }, [slides.length]);
 
     const goToPreviousSlide = () => {
         setCurrentSlide((prevSlide) => (prevSlide - 1 + slides.length) % slides.length);

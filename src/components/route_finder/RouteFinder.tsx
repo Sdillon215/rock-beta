@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, redirect } from 'next/navigation';
 import { Checkbox } from '@headlessui/react';
 import { Select, Field, Label } from '@headlessui/react';
@@ -24,7 +24,7 @@ const ratings = [
 export default function RouteFinder() {
     const searchParams = useSearchParams();
 
-    const getParam = (key: string, defaultValue: string) => searchParams.get(key) ?? defaultValue;
+    const getParam = useCallback((key: string, defaultValue: string) => searchParams.get(key) ?? defaultValue, [searchParams]);
 
     const [selectedGrade, setSelectedGrade] = useState(getParam('grade', '5.1'));
     const [selectedPitches, setSelectedPitches] = useState(getParam('pitches', '1'));
@@ -40,7 +40,7 @@ export default function RouteFinder() {
         setTradEnabled(getParam('trad', 'false') === 'true');
         setSportEnabled(getParam('sport', 'false') === 'true');
         setTopropeEnabled(getParam('toprope', 'false') === 'true');
-    }, [searchParams]);
+    }, [searchParams, getParam]);
 
     const handleSearch = () => {
         const queryParams = new URLSearchParams({
