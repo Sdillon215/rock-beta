@@ -13,7 +13,7 @@ export default function Hero() {
                         <p className="text-white">123,456 routes and counting</p>
                     </div>
                 </div>
-                <div className="row-span-4 md:col-span-3 md:row-span-2">
+                <div className="grid justify-items-center row-span-4 md:col-span-3 md:row-span-2">
                     <RouteFinder />
                 </div>
             </div>
