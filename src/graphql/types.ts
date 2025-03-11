@@ -54,6 +54,13 @@ export type RouteFormData = {
     crag_id: string;
 };
 
+export type RouteFinderFormData = {
+    grade: string;
+    pitches: number;
+    star_rating: number;
+    discipline: string[];
+}
+
 export type ImageFormData = {
     image: File;
     parent_id: string;
