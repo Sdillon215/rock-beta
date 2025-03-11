@@ -3,11 +3,8 @@
 import { useState } from 'react'
 import { Checkbox } from '@headlessui/react'
 import { Select, Field, Label } from "@headlessui/react";
-
-type RouteGrade = {
-    grade: string;
-    value: string;
-};
+import { ClimbingGrades } from '@/graphql/types';
+import { redirect } from 'next/navigation';
 
 type Pitches = {
     pitches: number;
@@ -19,18 +16,6 @@ type Rating = {
     textValue: string;
 };
 
-const grades: RouteGrade[] = [
-    { grade: "5.5", value: "5.5" },
-    { grade: "5.6", value: "5.6" },
-    { grade: "5.7", value: "5.7" },
-    { grade: "5.8", value: "5.8" },
-    { grade: "5.9", value: "5.9" },
-    { grade: "5.10", value: "5.10" },
-    { grade: "5.11", value: "5.11" },
-    { grade: "5.12", value: "5.12" },
-    { grade: "5.13", value: "5.13" },
-    { grade: "5.14", value: "5.14" }
-];
 
 const pitches: Pitches[] = [
     { pitches: 1, textValue: "1" },
@@ -49,9 +34,25 @@ const ratings: Rating[] = [
 
 
 export default function RoutFinder() {
+    const [selectedGrade, setSelectedGrade] = useState("5.1");
+    const [selectedPitches, setSelectedPitches] = useState("1");
+    const [selectedRating, setSelectedRating] = useState("0");
     const [tradEnabled, setTradEnabled] = useState(false);
     const [sportEnabled, setSportEnabled] = useState(false);
     const [topropeEnabled, setTopropeEnabled] = useState(false);
+
+    const handleSearch = () => {
+        const queryParams = new URLSearchParams({
+            grade: selectedGrade,
+            pitches: selectedPitches,
+            rating: selectedRating,
+            trad: tradEnabled.toString(),
+            sport: sportEnabled.toString(),
+            toprope: topropeEnabled.toString(),
+        }).toString();
+
+        redirect(`/route-finder?${queryParams}`);
+    };
 
     return (
         <div className="grid content-start mx-auto h-full md:w-2/3 p-4 bg-gray-700 rounded-md">
@@ -60,25 +61,40 @@ export default function RoutFinder() {
             </div>
             <div className="flex justify-between p-2">
                 <h2 className="text-xl font-bold text-white">Grade:</h2>
-                <Select name="grade" aria-label="route grade" className="w-16 text-center rounded-md p-1">
-                    {grades.map((grade) => (
-                        <option key={grade.grade} value={grade.value}>{grade.grade}</option>
+                <Select
+                    onChange={(e) => setSelectedGrade(e.target.value)}
+                    value={selectedGrade}
+                    name="grade"
+                    aria-label="route grade"
+                    className="w-16 text-center rounded-md p-1">
+                    {Object.values(ClimbingGrades).map((grade) => (
+                        <option key={grade} value={grade}>{grade}</option>
                     ))}
                 </Select>
             </div>
             <div className="flex justify-between p-2">
                 <h2 className="text-xl font-bold text-white">Pitches:</h2>
-                <Select name="grade" aria-label="route grade" className="w-16 text-center rounded-md p-1">
+                <Select
+                    value={selectedPitches}
+                    onChange={(e) => setSelectedPitches(e.target.value)}
+                    name="pitches"
+                    aria-label="pitches"
+                    className="w-16 text-center rounded-md p-1">
                     {pitches.map((pitch) => (
-                        <option key={pitch.pitches} value={pitch.textValue}>{pitch.textValue}</option>
+                        <option key={pitch.textValue} value={pitch.pitches}>{pitch.textValue}</option>
                     ))}
                 </Select>
             </div>
             <div className="flex justify-between p-2">
                 <h2 className="text-xl font-bold text-white">Rating:</h2>
-                <Select name="grade" aria-label="route grade" className="w-24 text-center rounded-md p-1">
+                <Select
+                    value={selectedRating}
+                    onChange={(e) => setSelectedRating(e.target.value)}
+                    name="route rating"
+                    aria-label="route rating"
+                    className="w-24 text-center rounded-md p-1">
                     {ratings.map((rating) => (
-                        <option key={rating.textValue} value={rating.textValue}>{rating.textValue}</option>
+                        <option key={rating.textValue} value={rating.stars}>{rating.textValue}</option>
                     ))}
                 </Select>
             </div>
@@ -123,7 +139,7 @@ export default function RoutFinder() {
             <div className="flex justify-center p-2">
                 <button
                     className='text-gray-800 bg-gray-200 hover:bg-gray-300 hover:text-black rounded-md px-3 py-2 text-sm font-medium w-24'
-
+                    onClick={handleSearch}
                 >
                     Get Beta
                 </button>
