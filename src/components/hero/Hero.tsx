@@ -1,5 +1,5 @@
 import Carousel from "@/components/carousel/Carousel";
-import RouteFinder from "@/components/route_finder/RouteFinder";
+import RouteFinderSuspense from "@/components/route_finder/RouteFinderSuspense";
 export default function Hero() {
     return (
         <section className="bg-gray-800">
@@ -14,7 +14,7 @@ export default function Hero() {
                     </div>
                 </div>
                 <div className="grid justify-items-center row-span-4 md:col-span-3 md:row-span-2">
-                    <RouteFinder />
+                    <RouteFinderSuspense />
                 </div>
             </div>
         </section>
