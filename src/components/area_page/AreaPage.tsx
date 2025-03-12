@@ -3,7 +3,7 @@ import MapFiller from '../../../public/map_filler.png';
 import Carousel from '@/components/carousel/Carousel';
 import SubNav from '@/components/sub_nav/SubNav';
 import ContributeMenu from '@/components/contribute_menu/ContributeMenu';
-import ClassicClimbsList from '@/components/classic_climbs_list/ClassicClimbsList';
+import ClassicClimbsList from '@/components/home_classic_climbs_list/HomeClassicClimbsList';
 import Link from 'next/link';
 import { AreaDetails, BlobImageData } from '@/graphql/types';
 

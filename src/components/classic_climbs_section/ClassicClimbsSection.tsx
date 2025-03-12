@@ -1,10 +1,10 @@
-import ClassicClimbsList from "@/components/classic_climbs_list/ClassicClimbsList";
+import HomeClassicClimbsList from "@/components/home_classic_climbs_list/HomeClassicClimbsList";
 
 export default function ClassicClimbsSection() {
     return (
         <section className="max-w-screen-xl md:mx-auto w-full grid grid-cols-2 md:grid-cols-3 gap-y-4 md:gap-4">
             <div className="col-span-2">
-                <ClassicClimbsList />
+                <HomeClassicClimbsList />
             </div>
             <div className="grid grid-cols-1 gap-y-4 place-content-start col-span-2 md:col-span-1">
                 <div>

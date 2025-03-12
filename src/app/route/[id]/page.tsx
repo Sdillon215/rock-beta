@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { fetchRouteDetails } from '@/lib/data/queries';
 import { StarIcon } from "@heroicons/react/16/solid";
 import Carousel from '@/components/carousel/Carousel';
-import ClassicClimbsList from '@/components/classic_climbs_list/ClassicClimbsList';
+import ClassicClimbsList from '@/components/home_classic_climbs_list/HomeClassicClimbsList';
 import Link from 'next/link';
 import SubNav from '@/components/sub_nav/SubNav';
 import ContributeMenu from '@/components/contribute_menu/ContributeMenu';
