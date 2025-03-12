@@ -65,7 +65,7 @@ export default function Carousel({ imageData }: { imageData?: BlobImageData[] })
                         alt={slide.caption}
                         fill={true}
                         priority
-                        sizes="(max-width: 1000px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1000px) 60vw, 33vw"
                         className="object-cover object-center"
                     />
                     <div className="absolute left-2 bottom-2 rounded-md bg-gray-800 py-1 px-2">

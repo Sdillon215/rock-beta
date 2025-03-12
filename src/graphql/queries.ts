@@ -204,3 +204,22 @@ export const GET_SEARCH_ROUTES = gql`
     }
   }
 `;
+
+export const GET_TOP_CLASSICS = gql`
+  query GetTopClassics {
+    routes(where: {star_rating: {_eq: 4}}) {
+      id
+      name
+      star_rating
+      grade
+      state {
+        id
+        name
+      }
+      subarea {
+        id
+        name
+      }
+    }
+  }
+`;
