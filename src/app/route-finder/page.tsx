@@ -1,5 +1,5 @@
 import RouteFinder from "@/components/route_finder/RouteFinder";
-import { RouteFinderFormData, SearchRoutes } from "@/graphql/types";
+import { RouteFinderFormData, RouteListItem } from "@/graphql/types";
 import { fetchRouteFinderRoutes } from "@/lib/data/queries";
 import { StarIcon } from "@heroicons/react/16/solid";
 import clsx from "clsx";
@@ -8,7 +8,7 @@ import Link from "next/link";
 export default async function Page({ searchParams }: { searchParams: Promise<{ [key: string]: string | undefined }> }) {
     const urlParams = await searchParams;
 
-    let filteredRoutes: SearchRoutes[] = [];
+    let filteredRoutes: RouteListItem[] = [];
     const grade = urlParams.grade;
     const pitches = urlParams.pitches;
     const rating = urlParams.star_rating;

@@ -212,6 +212,7 @@ export const GET_TOP_CLASSICS = gql`
       name
       star_rating
       grade
+      discipline
       state {
         id
         name

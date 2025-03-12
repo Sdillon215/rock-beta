@@ -135,7 +135,7 @@ export type RouteDetails = RouteBase & {
     route_images: BlobImageData[];
 };
 
-export type SearchRoutes = RouteBase & {
+export type RouteListItem = RouteBase & {
     discipline: string;
     state: {
         id: string;

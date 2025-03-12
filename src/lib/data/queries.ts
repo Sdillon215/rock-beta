@@ -18,7 +18,7 @@ import {
     StateId,
     CragParentIds,
     RouteFinderFormData,
-    SearchRoutes
+    RouteListItem,
 } from "@/graphql/types";
 
 export async function fetchStatesPreviews(): Promise<StatePreview[]> {
@@ -104,7 +104,7 @@ export async function fetchCragParentIds(cragId: string): Promise<CragParentIds 
 };
 
 
-export async function fetchRouteFinderRoutes(variables: RouteFinderFormData): Promise<SearchRoutes[]> {
+export async function fetchRouteFinderRoutes(variables: RouteFinderFormData): Promise<RouteListItem[]> {
     const client = getClient();
     const { data } = await client.query({
         query: GET_SEARCH_ROUTES,
