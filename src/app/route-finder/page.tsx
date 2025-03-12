@@ -46,7 +46,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ [
                                 <Link href={`/route/${route.id}`} className="text-blue-900 hover:text-blue-700">
                                     <h3 className="font-bold">{route.name}</h3>
                                 </Link>
-                                <p className="text-xs text-left">{route.state.name} &gt; {route.crag.name}</p>
+                                <p className="text-xs text-left">{route.state.name} &gt; {route.subarea.name}</p>
                             </div>
                             <div className="flex flex-col md:col-span-1 md:flex-row-reverse items-end md:items-center">
                                 <h4 className="font-semibold md:pl-4">{route.grade}</h4>

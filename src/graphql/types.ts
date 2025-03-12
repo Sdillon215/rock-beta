@@ -141,7 +141,7 @@ export type RouteListItem = RouteBase & {
         id: string;
         name: string;
     }
-    crag: {
+    subarea: {
         id: string;
         name: string;
     }

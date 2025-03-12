@@ -197,7 +197,7 @@ export const GET_SEARCH_ROUTES = gql`
         id
         name
       }
-      crag {
+      subarea {
         id
         name
       }
