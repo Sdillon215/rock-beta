@@ -7,7 +7,8 @@ import {
     GET_ROUTE_DETAILS,
     GET_SUBAREA_PARENT_ID,
     GET_CRAG_PARENT_IDS,
-    GET_SEARCH_ROUTES
+    GET_SEARCH_ROUTES,
+    GET_TOP_CLASSICS
 } from "@/graphql/queries";
 import {
     StatePreview,
@@ -115,6 +116,13 @@ export async function fetchRouteFinderRoutes(variables: RouteFinderFormData): Pr
             discipline: variables.discipline
         }
     });
+
+    return data.routes;
+};
+
+export async function fetchTopClassics(): Promise<RouteListItem[]> {
+    const client = getClient();
+    const { data } = await client.query({ query: GET_TOP_CLASSICS });
 
     return data.routes;
 };
