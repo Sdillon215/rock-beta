@@ -10,10 +10,13 @@ export const metadata: Metadata = {
 export default async function Page({ params }: { params: Promise<{ id: string }> }) {
     const id = (await params).id;
     const cragDetails = await fetchCragDetails(id);
+    
     if (!cragDetails) {
         return notFound();
     }
-
+    
+    const classicRoutes = cragDetails?.routes.filter(route => route.star_rating === 4);
+    
     return (
         <main className="grid gap-4 max-w-screen-xl mx-auto md:py-4">
             <AreaPage
@@ -31,6 +34,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                     ]
                 }
                 images={cragDetails.crag_images}
+                classicClimbs={classicRoutes}
             />
         </main>
     );

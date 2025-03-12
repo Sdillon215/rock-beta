@@ -56,6 +56,21 @@ export const GET_STATE_DETAILS = gql`
       caption
       image_url
     }
+    routes(where: {star_rating: {_eq: 4}}) {
+      id
+      name
+      star_rating
+      grade
+      discipline
+      state {
+        id
+        name
+      }
+      subarea {
+        id
+        name
+      }
+    }
   }
 }`;
 
@@ -85,6 +100,21 @@ export const GET_SUBAREA_DETAILS = gql`
       caption
       image_url
     }
+    routes(where: {star_rating: {_eq: 4}}) {
+      id
+      name
+      star_rating
+      grade
+      discipline
+      state {
+        id
+        name
+      }
+      subarea {
+        id
+        name
+      }
+    }
   }
 }`;
 
@@ -108,8 +138,17 @@ export const GET_CRAG_DETAILS = gql`
     routes {
       id
       name
-      grade
       star_rating
+      grade
+      discipline
+      state {
+        id
+        name
+      }
+      subarea {
+        id
+        name
+      }
     }
     state {
       id

@@ -3,9 +3,9 @@ import MapFiller from '../../../public/map_filler.png';
 import Carousel from '@/components/carousel/Carousel';
 import SubNav from '@/components/sub_nav/SubNav';
 import ContributeMenu from '@/components/contribute_menu/ContributeMenu';
-import ClassicClimbsList from '@/components/home_classic_climbs_list/HomeClassicClimbsList';
+import AreaClassicClimbList from '@/components/area_classic_climb_list/AreaClassicClimbList';
 import Link from 'next/link';
-import { AreaDetails, BlobImageData } from '@/graphql/types';
+import { AreaDetails, BlobImageData, RouteListItem } from '@/graphql/types';
 
 type AreaPageProps<T extends AreaDetails> = {
     area: T;
@@ -13,6 +13,7 @@ type AreaPageProps<T extends AreaDetails> = {
     childAreas?: { id: string; name: string; routes_aggregate: { aggregate: { count: number } } }[];
     childPath?: string;
     images: BlobImageData[];
+    classicClimbs: RouteListItem[];
 };
 
 export default function AreaPage<T extends AreaDetails>({
@@ -20,7 +21,8 @@ export default function AreaPage<T extends AreaDetails>({
     parentPaths,
     childAreas,
     childPath,
-    images
+    images,
+    classicClimbs,
 }: AreaPageProps<T>) {
     return (
         <section className="grid md:grid-flow-col gap-4 md:grid-cols-12">
@@ -59,7 +61,7 @@ export default function AreaPage<T extends AreaDetails>({
                         ))}
                     </div>
                 )}
-                {"routes" in area && area.routes.length > 0 && (
+                {area.__typename === "crags" && area.routes.length > 0 && (
                     <div>
                         <div className="border-b-4 border-blue-900">
                             <h1 className="text-lg font-bold pl-2">Routes in {area.name}</h1>
@@ -131,9 +133,9 @@ export default function AreaPage<T extends AreaDetails>({
                             )}
                     </div>
                 </div>
-                <div className="md:col-span-2">
-                    <ClassicClimbsList />
-                </div>
+                {classicClimbs && classicClimbs.length > 0 && (<div className="md:col-span-2">
+                    <AreaClassicClimbList areaName={area.name} classicRoutes={classicClimbs} />
+                </div>)}
             </div>
         </section>
     );

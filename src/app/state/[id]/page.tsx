@@ -21,6 +21,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                 childAreas={stateDetails.subareas}
                 childPath="/subarea"
                 images={stateDetails.state_images}
+                classicClimbs={stateDetails.routes}
             />
         </main>
     );

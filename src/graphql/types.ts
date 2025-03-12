@@ -83,6 +83,7 @@ export type StateDetails = AreaBase & {
     description: string;
     subareas: AreaBase[];
     state_images: BlobImageData[];
+    routes: RouteListItem[];
 };
 
 export type SubareaDetails = AreaBase & {
@@ -95,13 +96,14 @@ export type SubareaDetails = AreaBase & {
     };
     crags: AreaBase[];
     subarea_images: BlobImageData[];
+    routes: RouteListItem[];
 };
 
 export type CragDetails = AreaBase & {
     description: string;
     location: string;
     gps: string;
-    routes: RouteBase[];
+    routes: RouteListItem[];
     state: AreaBase;
     subarea: AreaBase;
     crag_images: BlobImageData[];
