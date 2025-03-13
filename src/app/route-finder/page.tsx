@@ -31,8 +31,8 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ [
 
     return (
         <main className="grid grid-cols-1 gap-4 max-w-screen-md mx-auto py-4">
-            <h1 className="text-2xl md:text-4xl font-bold">Route Finder</h1>
-            <div className="grid justify-items-start">
+            <h1 className="text-2xl md:text-4xl font-bold px-4 md:px-0">Route Finder</h1>
+            <div className="grid justify-items-start px-4 md:px-0">
                 <RouteFinder />
             </div>
             <div className="border-b-4 border-blue-900">
