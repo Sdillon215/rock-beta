@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, forwardRef, Ref } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from "next/navigation";
 import { z } from 'zod';
@@ -30,10 +30,10 @@ type AddPhotoModalProps = {
     parentId: string;
     parentName: string;
     parentType: string;
-    onClose: () => void; // Accept onClose prop
+    onClose: () => void;
 };
 
-export default function AddPhotoModal({ parentId, parentName, parentType, onClose }: AddPhotoModalProps) {
+const AddPhotoModal = forwardRef<HTMLDivElement, AddPhotoModalProps>(({ parentId, parentName, parentType, onClose }, ref) => {
     const router = useRouter();
     const {
         register,
@@ -49,7 +49,7 @@ export default function AddPhotoModal({ parentId, parentName, parentType, onClos
     const handleClose = () => {
         reset();
         setSuccessMessage(null);
-        onClose(); // Call onClose from ContributeMenu
+        onClose();
     };
 
     const onSubmit = async (formData: PhotoFormData) => {
@@ -73,6 +73,9 @@ export default function AddPhotoModal({ parentId, parentName, parentType, onClos
             setSuccessMessage('Photo added successfully!');
             reset();
             router.refresh();
+            setTimeout(() => {
+                handleClose();
+            }, 500);
         } catch (error) {
             console.error(error);
             setSuccessMessage('Error adding photo.');
@@ -80,7 +83,7 @@ export default function AddPhotoModal({ parentId, parentName, parentType, onClos
     };
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+        <div ref={ref} className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
             <div className="grid gap-4 bg-white rounded-md p-6 max-w-2xl w-full text-left">
                 <h2 className="text-2xl font-semibold">Add photo to {parentName}</h2>
                 {successMessage && <p className="text-green-600">{successMessage}</p>}
@@ -112,4 +115,8 @@ export default function AddPhotoModal({ parentId, parentName, parentType, onClos
             </div>
         </div>
     );
-}
+});
+
+AddPhotoModal.displayName = 'AddPhotoModal';
+
+export default AddPhotoModal;

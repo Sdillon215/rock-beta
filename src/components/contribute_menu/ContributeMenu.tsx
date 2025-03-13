@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ChevronDownIcon, Square2StackIcon } from '@heroicons/react/16/solid';
 import { PhotoIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
@@ -10,6 +10,10 @@ import { AreaDetails } from '@/graphql/types';
 export default function ContributeMenu({ area, parentId, parentName }: { area?: AreaDetails, parentId: string; parentName: string }) {
     const [isOpen, setIsOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const menuRef = useRef<HTMLDivElement>(null);
+    const modalRef = useRef<HTMLDivElement>(null);
+    
     let imageParentType;
 
     if (area) {
@@ -18,8 +22,22 @@ export default function ContributeMenu({ area, parentId, parentName }: { area?: 
         imageParentType = "route";
     }
 
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (isOpen && !menuRef.current?.contains(event.target as Node) && !modalRef.current?.contains(event.target as Node) && !isModalOpen) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isOpen, isModalOpen]);
+
     return (
-        <div className="relative">
+        <div className="relative" ref={menuRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="inline-flex items-center gap-2 rounded-md bg-gray-800 py-1.5 px-3 text-sm font-semibold text-white shadow-inner shadow-white/10 focus:outline-none hover:bg-gray-700"
@@ -30,24 +48,27 @@ export default function ContributeMenu({ area, parentId, parentName }: { area?: 
 
             {isOpen && (
                 <div className="absolute z-40 right-0 mt-2 w-52 origin-top-right rounded-xl bg-gray-200 p-1 text-sm text-black shadow-lg">
-                    {area && (<Link
-                        href={
-                            area.__typename === "states" ?
-                                `/add/subarea/${area.id}` :
-                                area.__typename === "subarea" ?
-                                    `/add/crag/${area.id}` :
-                                    `/add/route/${area.id}`
-                        }
-                        className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-gray-100">
-                        <Square2StackIcon className="size-4 " />
-                        {
-                            area.__typename === "states" ?
-                                "Add Subarea" :
-                                area.__typename === "subarea" ?
-                                    "Add Crag" :
-                                    "Add Route"
-                        }
-                    </Link>)}
+                    {area && (
+                        <Link
+                            href={
+                                area.__typename === "states" ? 
+                                    `/add/subarea/${area.id}` :
+                                    area.__typename === "subarea" ? 
+                                        `/add/crag/${area.id}` : 
+                                        `/add/route/${area.id}`
+                            }
+                            className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3 data-[focus]:bg-gray-100"
+                        >
+                            <Square2StackIcon className="size-4" />
+                            {
+                                area.__typename === "states" ?
+                                    "Add Subarea" :
+                                    area.__typename === "subarea" ?
+                                        "Add Crag" :
+                                        "Add Route"
+                            }
+                        </Link>
+                    )}
                     <div className="my-1 h-px bg-gray-300" />
                     <button
                         onClick={() => setIsModalOpen(true)}
@@ -64,7 +85,11 @@ export default function ContributeMenu({ area, parentId, parentName }: { area?: 
                     parentId={parentId}
                     parentName={parentName}
                     parentType={imageParentType}
-                    onClose={() => setIsModalOpen(false)} // Pass a close handler
+                    onClose={() => {
+                        setIsOpen(false);
+                        setIsModalOpen(false);
+                    }}
+                    ref={modalRef}
                 />
             )}
         </div>
