@@ -58,7 +58,7 @@ export default function RouteFinder() {
     };
 
     return (
-        <div className="grid content-start h-full md:w-2/3 p-4 bg-gray-700 rounded-md">
+        <div className="grid content-start h-fit w-full md:w-2/3 p-4 bg-gray-700 rounded-md">
             <div className="border-b-[1px]">
                 <h1 className="text-2xl font-bold text-white">Route Finder</h1>
             </div>
@@ -98,7 +98,7 @@ export default function RouteFinder() {
                     ))}
                 </Select>
             </div>
-            <div className="flex justify-between p-2 px-12">
+            <div className="flex flex-wrap justify-between p-2">
                 {[
                     ['Trad', tradEnabled, setTradEnabled],
                     ['Sport', sportEnabled, setSportEnabled],
