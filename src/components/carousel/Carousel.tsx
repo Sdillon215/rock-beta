@@ -64,7 +64,8 @@ export default function Carousel({ imageData }: { imageData?: BlobImageData[] })
                         src={slide.image_url}
                         alt={slide.caption}
                         fill={true}
-                        priority
+                        placeholder='blur'
+                        blurDataURL='https://iqps8tvf9cebkyhe.public.blob.vercel-storage.com/blur-Hu2CtV1lHj0PnWysockJBg5neVL7Xx.png'
                         sizes="(max-width: 768px) 100vw, (max-width: 1000px) 60vw, 33vw"
                         className="object-cover object-center"
                     />
