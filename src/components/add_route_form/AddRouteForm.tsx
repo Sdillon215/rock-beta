@@ -93,7 +93,7 @@ export default function AddRouteForm({ id }: { id: string }) {
                     />
                     {errors.name && <p className="text-red-500 text-xs">{errors.name.message}</p>}
                 </div>
-                <div className="flex flex-row gap-4 min-w-full">
+                <div className="flex flex-row flex-wrap gap-4 min-w-full">
                     <div className="flex items-center space-x-2">
                         <label className="block text-xl font-bold text-gray-700">Grade:</label>
                         <select className="w-24 text-center border rounded-md p-1" {...register('grade')}>
