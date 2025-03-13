@@ -67,7 +67,7 @@ export default function RouteFinder() {
                 <Select
                     onChange={(e) => setSelectedGrade(e.target.value)}
                     value={selectedGrade}
-                    className="w-16 text-center rounded-md p-1"
+                    className="w-18 text-center rounded-md p-1"
                 >
                     {Object.values(ClimbingGrades).map((grade) => (
                         <option key={grade} value={grade}>{grade}</option>
