@@ -7,6 +7,7 @@ import ClassicClimbsList from '@/components/home_classic_climbs_list/HomeClassic
 import Link from 'next/link';
 import SubNav from '@/components/sub_nav/SubNav';
 import ContributeMenu from '@/components/contribute_menu/ContributeMenu';
+import PhotoListSection from '@/components/photo_list_section/PhotoListSection';
 
 export const metadata: Metadata = {
     title: 'Route Page',
@@ -120,6 +121,11 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
                     <div className="md:col-span-2">
                         <ClassicClimbsList />
                     </div>
+                    {route.route_images && route.route_images.length > 0 && (
+                        <div className="md:col-span-2">
+                            <PhotoListSection images={route.route_images} />
+                        </div>
+                    )}
                 </div>
             </section>
         </main>

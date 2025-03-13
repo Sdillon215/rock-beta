@@ -6,6 +6,7 @@ import ContributeMenu from '@/components/contribute_menu/ContributeMenu';
 import AreaClassicClimbList from '@/components/area_classic_climb_list/AreaClassicClimbList';
 import Link from 'next/link';
 import { AreaDetails, BlobImageData, RouteListItem } from '@/graphql/types';
+import PhotoListSection from '@/components/photo_list_section/PhotoListSection';
 
 type AreaPageProps<T extends AreaDetails> = {
     area: T;
@@ -133,9 +134,16 @@ export default function AreaPage<T extends AreaDetails>({
                             )}
                     </div>
                 </div>
-                {classicClimbs && classicClimbs.length > 0 && (<div className="md:col-span-2">
-                    <AreaClassicClimbList areaName={area.name} classicRoutes={classicClimbs} />
-                </div>)}
+                {classicClimbs && classicClimbs.length > 0 && (
+                    <div className="md:col-span-2">
+                        <AreaClassicClimbList areaName={area.name} classicRoutes={classicClimbs} />
+                    </div>
+                )}
+                {images && images.length > 0 && (
+                    <div className="md:col-span-2">
+                        <PhotoListSection images={images} />
+                    </div>
+                )}
             </div>
         </section>
     );
