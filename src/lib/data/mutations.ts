@@ -2,6 +2,7 @@
 
 import { getClient } from '@/lib/apollo_client';
 import { put } from '@vercel/blob';
+import { getPlaiceholder } from "plaiceholder";
 import {
   INSERT_SUBAREA,
   INSERT_CRAG,
@@ -170,11 +171,15 @@ export const insertStateImage = async (imageData: ImageFormData) => {
   const client = getClient();
   const imageFile = imageData.image as File;
 
+  const arrayBuffer = await imageFile.arrayBuffer();
+  const { base64 } = await getPlaiceholder(Buffer.from(arrayBuffer));
+
   try {
     const blobUrl = await uploadBlobImage(imageFile);
 
     const newImageData = {
       image_url: blobUrl,
+      blur_data_url: base64,
       state_id: imageData.parent_id,
       caption: imageData.caption,
     }

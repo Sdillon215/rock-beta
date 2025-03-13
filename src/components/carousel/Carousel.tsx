@@ -11,6 +11,7 @@ import { BlobImageData } from '@/graphql/types';
 type Slide = {
     caption: string;
     image_url: StaticImageData;
+    blur_data_url: string;
     linkUrl: string;
 };
 
@@ -18,16 +19,19 @@ const defaultSlides: Slide[] = [
     {
         caption: "Scarface 5.11a/b",
         image_url: Scarface,
+        blur_data_url: Scarface.blurDataURL!,
         linkUrl: "#"
     },
     {
         caption: "Knotty Tower 5.9",
         image_url: KnottyTower,
+        blur_data_url: KnottyTower.blurDataURL!,
         linkUrl: "#"
     },
     {
         caption: "Country Western Ballad 5.11c",
         image_url: Ballad,
+        blur_data_url: Ballad.blurDataURL!,
         linkUrl: "#"
     }
 ];
@@ -65,7 +69,8 @@ export default function Carousel({ imageData }: { imageData?: BlobImageData[] })
                         alt={slide.caption}
                         fill={true}
                         placeholder='blur'
-                        blurDataURL='https://iqps8tvf9cebkyhe.public.blob.vercel-storage.com/blur-Hu2CtV1lHj0PnWysockJBg5neVL7Xx.png'
+                        priority
+                        blurDataURL={slide.blur_data_url}
                         sizes="(max-width: 768px) 100vw, (max-width: 1000px) 60vw, 33vw"
                         className="object-cover object-center"
                     />

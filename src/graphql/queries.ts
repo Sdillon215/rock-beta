@@ -55,6 +55,7 @@ export const GET_STATE_DETAILS = gql`
       id
       caption
       image_url
+      blur_data_url
     }
     routes(where: {star_rating: {_eq: 4}}) {
       id
@@ -99,6 +100,7 @@ export const GET_SUBAREA_DETAILS = gql`
       id
       caption
       image_url
+      blur_data_url
     }
     routes(where: {star_rating: {_eq: 4}}) {
       id
@@ -162,6 +164,7 @@ export const GET_CRAG_DETAILS = gql`
       id
       caption
       image_url
+      blur_data_url
     }
   }
 }`;
@@ -213,6 +216,7 @@ export const GET_ROUTE_DETAILS = gql`
       id
       caption
       image_url
+      blur_data_url
     }
   }
 }`;

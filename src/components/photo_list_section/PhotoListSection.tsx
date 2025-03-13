@@ -27,7 +27,10 @@ export default function PhotoListSection({ images }: PhotoListSectionProps) {
                             src={image.image_url}
                             alt={image.caption}
                             fill
-                            priority
+                            placeholder="blur"
+                            blurDataURL={image.blur_data_url}
+                            loading="lazy"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1000px) 60vw, 33vw"
                             className="object-cover object-center"
                         />
                     </div>
@@ -43,6 +46,10 @@ export default function PhotoListSection({ images }: PhotoListSectionProps) {
                             src={selectedImage.image_url}
                             alt={selectedImage.caption}
                             fill
+                            placeholder="blur"
+                            blurDataURL={selectedImage.blur_data_url}
+                            loading="lazy"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1000px) 60vw, 33vw"
                             className="object-cover w-full h-full rounded-lg"
                         />
                         <button

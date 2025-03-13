@@ -71,6 +71,7 @@ export type BlobImageData = {
     id: string;
     caption: string;
     image_url: string;
+    blur_data_url: string;
 }
 
 // partial types

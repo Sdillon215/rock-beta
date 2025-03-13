@@ -32,6 +32,7 @@ export const INSERT_ROUTE_IMAGE = gql`
     insert_route_images_one(object: $object) {
       id
       image_url
+      blur_data_url
       caption
     }
   }
@@ -42,6 +43,7 @@ export const INSERT_CRAG_IMAGE = gql`
     insert_crag_images_one(object: $object) {
       id
       image_url
+      blur_data_url
       caption
     }
   }
@@ -52,6 +54,7 @@ export const INSERT_SUBAREA_IMAGE = gql`
     insert_subarea_images_one(object: $object) {
       id
       image_url
+      blur_data_url
       caption
     }
   }
@@ -62,6 +65,7 @@ export const INSERT_STATE_IMAGE = gql`
     insert_state_images_one(object: $object) {
       id
       image_url
+      blur_data_url
       caption
     }
   }
