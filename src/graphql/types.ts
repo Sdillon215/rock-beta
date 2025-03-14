@@ -196,3 +196,11 @@ export enum ClimbingDisciplines {
     sport = 'Sport',
     toprope = 'Toprope',
 };
+
+export interface CustomGeoJsonFeature extends GeoJSON.Feature {
+    geometry: GeoJSON.Point;
+    properties: {
+        id: string;
+        name: string;
+    };
+}
