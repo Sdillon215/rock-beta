@@ -18,7 +18,11 @@ export type AreaBase = {
     };
 };
 
-
+export type MapboxArea = {
+    id: string;
+    name: string;
+    gps: string;
+};
 
 export type StateId = {
     state_id: string;

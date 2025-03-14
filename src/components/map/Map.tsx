@@ -1,40 +1,81 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
+import { MapboxArea } from "@/graphql/types";
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!;
 
-const Map = ({ climbingAreas }: { climbingAreas: { id: string; name: string; latitude: number; longitude: number }[] }) => {
+// Sample Data
+const unParsedGeoJsonData: MapboxArea[] = [
+    { id: "1", name: "Area 1", gps: "37.7749,-122.4194" },
+    { id: "2", name: "Area 2", gps: "34.0522,-118.2437" },
+    { id: "3", name: "Area 3", gps: "40.7128,-74.0060" },
+];
+
+// Function to Convert Data to GeoJSON
+interface CustomGeoJsonFeature extends GeoJSON.Feature {
+    geometry: GeoJSON.Point;
+    properties: {
+        id: string;
+        name: string;
+    };
+}
+
+const parseGeoJsonData = (areas: MapboxArea[]): GeoJSON.FeatureCollection<GeoJSON.Geometry> => {
+    return {
+        type: "FeatureCollection",
+        features: areas
+            .map(area => {
+                const [lat, lon] = area.gps
+                    .trim()
+                    .split(",")
+                    .map(coord => parseFloat(coord.trim()));
+
+                if (isNaN(lat) || isNaN(lon)) {
+                    console.error("Invalid GPS coordinates for:", area);
+                    return null; // Skip invalid entries
+                }
+
+                return {
+                    type: "Feature",
+                    geometry: {
+                        type: "Point",
+                        coordinates: [lon, lat], // GeoJSON expects [longitude, latitude]
+                    },
+                    properties: {
+                        id: area.id,
+                        name: area.name,
+                    },
+                } as CustomGeoJsonFeature;
+            })
+            .filter((feature): feature is CustomGeoJsonFeature => feature !== null), // Remove null values
+    };
+};
+
+const Map = () => {
     const mapContainerRef = useRef<HTMLDivElement | null>(null);
     const mapRef = useRef<mapboxgl.Map | null>(null);
+    const [geoJsonData, setGeoJsonData] = useState<GeoJSON.FeatureCollection | null>(null);
 
     useEffect(() => {
-        if (!mapContainerRef.current) return;
+        setGeoJsonData(parseGeoJsonData(unParsedGeoJsonData));
+    }, []);
+
+    useEffect(() => {
+        if (!mapContainerRef.current || !geoJsonData) return;
 
         mapRef.current = new mapboxgl.Map({
             container: mapContainerRef.current,
-            style: "mapbox://styles/mapbox/outdoors-v11", // You can change the map style
+            style: "mapbox://styles/mapbox/standard-satellite",
             center: [-100.486052, 37.830348], // Default center
             zoom: 3,
         });
 
-        // Add Source & Layer for Pins
         mapRef.current.on("load", () => {
             mapRef.current!.addSource("climbing-areas", {
                 type: "geojson",
-                data: {
-                    type: "FeatureCollection",
-                    features: climbingAreas.map(area => ({
-                        type: "Feature",
-                        geometry: {
-                            type: "Point",
-                            coordinates: [area.longitude, area.latitude],
-                        },
-                        properties: {
-                            id: area.id,
-                            name: area.name,
-                        },
-                    })),
-                },
+                data: geoJsonData, // Use parsed GeoJSON data
             });
 
             mapRef.current!.addLayer({
@@ -62,9 +103,9 @@ const Map = ({ climbingAreas }: { climbingAreas: { id: string; name: string; lat
         });
 
         return () => mapRef.current?.remove();
-    }, [climbingAreas]);
+    }, [geoJsonData]);
 
-    return <div ref={mapContainerRef} style={{ width: "100%", height: "500px" }} />;
+    return <div ref={mapContainerRef} className="absolute top-0 bottom-0 left-0 right-0 w-full h-full" />;
 };
 
 export default Map;

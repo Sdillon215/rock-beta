@@ -1,9 +1,8 @@
-import Image from 'next/image';
-import MapFiller from '../../../public/map_filler.png';
 import Carousel from '@/components/carousel/Carousel';
 import SubNav from '@/components/sub_nav/SubNav';
 import ContributeMenu from '@/components/contribute_menu/ContributeMenu';
 import AreaClassicClimbList from '@/components/area_classic_climb_list/AreaClassicClimbList';
+import Map from '@/components/map/Map';
 import Link from 'next/link';
 import { AreaDetails, BlobImageData, RouteListItem } from '@/graphql/types';
 import PhotoListSection from '@/components/photo_list_section/PhotoListSection';
@@ -43,15 +42,8 @@ export default function AreaPage<T extends AreaDetails>({
                         </div>
                     )}
                 </div>
-                <div className="relative h-[25vh] mx-2">
-                    <Image
-                        src={MapFiller}
-                        alt="State Image"
-                        fill={true}
-                        placeholder="blur"
-                        sizes='(100vw) 100vw, (max-width: 768px) 100vw, (max-width: 1000px) 60vw, 33vw'
-                        className="object-contain object-center"
-                    />
+                <div className="relative h-[30vh] overflow-clip">
+                    <Map />
                 </div>
                 {childAreas && childAreas.length > 0 && (
                     <div>
