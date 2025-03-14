@@ -30,7 +30,12 @@ export default function AreaPage<T extends AreaDetails>({
             <div className="grid gap-4 md:col-span-3 content-start h-fit bg-gray-200">
                 <div className="md:hidden px-4">
                     <SubNav parentPaths={parentPaths} currentName={area.name} />
-                    <h1 className="text-2xl md:text-4xl font-bold">{area.name}</h1>
+                    <div className="flex flex-row justify-between items-center pb-4">
+                        <h1 className="text-2xl md:text-4xl font-bold">{area.name}</h1>
+                        <div className="md:hidden w-52 text-right">
+                            <ContributeMenu area={area} parentId={area.id} parentName={area.name} />
+                        </div>
+                    </div>
                     {"gps" in area && area.gps && (
                         <div className="flex flex-row items-center px-4">
                             <p className="pr-4">GPS:</p>
@@ -121,7 +126,7 @@ export default function AreaPage<T extends AreaDetails>({
                     )}
                 </div>
                 <div className="grid gap-4 grid-flow-row justify-items-end content-between md:col-span-1 p-4">
-                    <div className="w-52 text-right">
+                    <div className="hidden md:block w-52 text-right">
                         <ContributeMenu area={area} parentId={area.id} parentName={area.name} />
                     </div>
                     <div className="relative aspect-square w-full">

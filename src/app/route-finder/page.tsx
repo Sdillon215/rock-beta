@@ -61,7 +61,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<{ [
                     ))}
                 </ul>
             ) : (
-                <h2 className="text-xl md:text-2xl">No routes found matching your criteria.</h2>
+                <h2 className="text-xl md:text-2xl px-2">No routes found matching your criteria.</h2>
             )}
         </main>
     );

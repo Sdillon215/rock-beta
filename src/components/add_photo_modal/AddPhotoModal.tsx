@@ -83,7 +83,7 @@ const AddPhotoModal = forwardRef<HTMLDivElement, AddPhotoModalProps>(({ parentId
     };
 
     return (
-        <div ref={ref} className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
+        <div ref={ref} className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 p-4 z-50">
             <div className="grid gap-4 bg-white rounded-md p-6 max-w-2xl w-full text-left">
                 <h2 className="text-2xl font-semibold">Add photo to {parentName}</h2>
                 {successMessage && <p className="text-green-600">{successMessage}</p>}
