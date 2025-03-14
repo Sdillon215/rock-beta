@@ -4,7 +4,7 @@ import ContributeMenu from '@/components/contribute_menu/ContributeMenu';
 import AreaClassicClimbList from '@/components/area_classic_climb_list/AreaClassicClimbList';
 import Map from '@/components/map/Map';
 import Link from 'next/link';
-import { AreaDetails, BlobImageData, RouteListItem } from '@/graphql/types';
+import { AreaDetails, BlobImageData, RouteListItem, MapboxArea } from '@/graphql/types';
 import PhotoListSection from '@/components/photo_list_section/PhotoListSection';
 
 type AreaPageProps<T extends AreaDetails> = {
@@ -24,6 +24,13 @@ export default function AreaPage<T extends AreaDetails>({
     images,
     classicClimbs,
 }: AreaPageProps<T>) {
+    const areaGeoData: MapboxArea[] = [
+        {
+            id: area.id,
+            name: area.name,
+            gps: area.gps
+        }
+    ];
     return (
         <section className="grid md:grid-flow-col gap-4 md:grid-cols-12">
             <div className="grid gap-4 md:col-span-3 content-start h-fit bg-gray-200">
@@ -43,7 +50,7 @@ export default function AreaPage<T extends AreaDetails>({
                     )}
                 </div>
                 <div className="relative h-[30vh] overflow-clip">
-                    <Map />
+                    <Map unParsedGeoJsonData={areaGeoData} />
                 </div>
                 {childAreas && childAreas.length > 0 && (
                     <div>
