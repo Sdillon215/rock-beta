@@ -18,6 +18,8 @@ export type AreaBase = {
     };
 };
 
+
+
 export type StateId = {
     state_id: string;
 };
