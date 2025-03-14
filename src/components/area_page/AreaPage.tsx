@@ -44,6 +44,7 @@ export default function AreaPage<T extends AreaDetails>({
                         alt="State Image"
                         fill={true}
                         placeholder="blur"
+                        sizes='(100vw) 100vw, (max-width: 768px) 100vw, (max-width: 1000px) 60vw, 33vw'
                         className="object-contain object-center"
                     />
                 </div>
