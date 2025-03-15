@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { addSubarea } from '@/lib/data/mutations';
@@ -21,6 +22,7 @@ const subareaSchema = z.object({
 type SubareaFormValues = z.infer<typeof subareaSchema>;
 
 export default function AddSubAreaForm({ id }: { id: string }) {
+    const router = useRouter();
     const {
         register,
         handleSubmit,
@@ -36,10 +38,11 @@ export default function AddSubAreaForm({ id }: { id: string }) {
         console.log('Form submitted:', data);
         try {
             const subareaData = { ...data, state_id: id };
-            await addSubarea(subareaData);
+            const newSubareaId = await addSubarea(subareaData);
 
             setSuccessMessage('Subarea added successfully!');
             reset();
+            router.push(`/subarea/${newSubareaId}`);
         } catch (error) {
             console.error(error);
             setSuccessMessage('Error adding subarea.');

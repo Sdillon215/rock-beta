@@ -33,8 +33,8 @@ export const addSubarea = async (subarea: SubareaFormData) => {
       variables: { object: subarea },
     });
 
-    console.log('Subarea inserted:', data.insert_subarea.returning[0]);
-    return data.insert_subarea.returning[0]; // Return the created subarea
+    console.log('Subarea inserted:', data.insert_subarea_one);
+    return data.insert_subarea_one.id;
   } catch (error) {
     console.error('Error inserting subarea:', error);
     throw error;

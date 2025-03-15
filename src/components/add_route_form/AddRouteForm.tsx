@@ -72,7 +72,7 @@ export default function AddRouteForm({ id }: { id: string }) {
             reset();
             router.push(`/route/${newRouteId}`);
         } catch (error) {
-            console.error(error);
+            console.error(error); 
             setSuccessMessage('Error adding route.');
         }
     };
