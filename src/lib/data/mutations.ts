@@ -90,11 +90,15 @@ export const insertRouteImage = async (imageData: ImageFormData) => {
   const client = getClient();
   const imageFile = imageData.image as File;
 
+  const arrayBuffer = await imageFile.arrayBuffer();
+  const { base64 } = await getPlaiceholder(Buffer.from(arrayBuffer));
+
   try {
     const blobUrl = await uploadBlobImage(imageFile);
 
     const newImageData = {
       image_url: blobUrl,
+      blur_data_url: base64,
       route_id: imageData.parent_id,
       caption: imageData.caption,
     }
@@ -117,11 +121,15 @@ export const insertCragImage = async (imageData: ImageFormData) => {
   const client = getClient();
   const imageFile = imageData.image as File;
 
+  const arrayBuffer = await imageFile.arrayBuffer();
+  const { base64 } = await getPlaiceholder(Buffer.from(arrayBuffer));
+
   try {
     const blobUrl = await uploadBlobImage(imageFile);
 
     const newImageData = {
       image_url: blobUrl,
+      blur_data_url: base64,
       crag_id: imageData.parent_id,
       caption: imageData.caption,
     }
@@ -144,11 +152,15 @@ export const insertSubareaImage = async (imageData: ImageFormData) => {
   const client = getClient();
   const imageFile = imageData.image as File;
 
+  const arrayBuffer = await imageFile.arrayBuffer();
+  const { base64 } = await getPlaiceholder(Buffer.from(arrayBuffer));
+
   try {
     const blobUrl = await uploadBlobImage(imageFile);
 
     const newImageData = {
       image_url: blobUrl,
+      blur_data_url: base64,
       subarea_id: imageData.parent_id,
       caption: imageData.caption,
     }
