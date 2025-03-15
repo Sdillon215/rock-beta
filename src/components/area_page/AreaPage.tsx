@@ -124,7 +124,7 @@ export default function AreaPage<T extends AreaDetails>({
                         </div>
                     )}
                 </div>
-                <div className="grid gap-4 grid-flow-row justify-items-end content-between md:col-span-1 p-4">
+                <div className="grid gap-4 grid-flow-row justify-items-end content-start md:col-span-1 p-4">
                     <div className="hidden md:block w-52 text-right">
                         <ContributeMenu area={area} parentId={area.id} parentName={area.name} />
                     </div>
